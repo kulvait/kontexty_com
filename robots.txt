@@ -1,0 +1,4 @@
+Sitemap: https://kontexty.com/sitemapindex.xml
+
+User-Agent: *
+Host: kontexty.com
