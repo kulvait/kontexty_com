@@ -1,5 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Kontexty (Posts about software-blog)</title><link>https://kontexty.com/</link><description></description><atom:link href="https://kontexty.com/categories/cat_software-blog.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2023 &lt;a href="mailto:"&gt;&lt;/a&gt; </copyright><lastBuildDate>Fri, 17 Feb 2023 21:40:18 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Why use Google chrome and why not? Translator integration and case insensitive CTRL-F</title><link>https://kontexty.com/posts/why-use-google-chrome-and-why-not.html</link><description>&lt;p&gt;Google Chrome started to dominate web browsers usage stats as of 2012 and as of 2023 its &lt;a href="https://en.wikipedia.org/wiki/Usage_share_of_web_browsers"&gt;market share is over 60%&lt;/a&gt;. Its engine even made it into Windows default browser Edge. Regardless of whether you like it or not, Google Chrome is now the dominant web browser and one that's hard to avoid.&lt;/p&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Kontexty (Posts about software-blog)</title><link>https://kontexty.com/</link><description></description><atom:link href="https://kontexty.com/categories/cat_software-blog.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2023 &lt;a href="mailto:"&gt;&lt;/a&gt; &lt;small&gt;Unles stated otherwise, content of these pages is licensed under &lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"&gt;CC BY-NC-ND 4.0&lt;/a&gt;.&lt;/small&gt;</copyright><lastBuildDate>Sun, 19 Feb 2023 20:27:12 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Lasagna cheaper than ready made product from the store?</title><link>https://kontexty.com/posts/lasagna-cheaper-than-ready-made-product.html</link><dc:creator>VK</dc:creator><description>&lt;p&gt;In virtually any supermarket in Hamburg you can buy ready-made lasagne, 1 kg pack. Put them in the oven, wait an hour and you have a ready-made dinner for two people. At ALDI, they sell them for &lt;a href="https://www.aldi-nord.de/sortiment/nahrungsmittel/fertiggerichte/pizza-pasta/lasagne-6671-0-0.article.html"&gt;3.99 euros&lt;/a&gt;, and for the quantity, it's one of the cheapest almost ready made meals. I have them from time to time, they taste good. But several times I have come across these lasagne, from various stores, that were too sour. It's hard to tell then if it could have been the spoiled meat, or just the abundance of tomato puree and lemon juice in the béchamel.&lt;/p&gt;
+&lt;p&gt;When I went grocery shopping yesterday, I put two packs of these lasagnas in my cart so we'd have food for the weekend. Then I thought, what if I made the actual lasagna myself? Could they be better? And can I actually save money if I make them myself? Luckilly I have found dehydrated lasagna noodles in the shop so I could slid the semi-finished products back into the shelf. &lt;/p&gt;
+&lt;p&gt;In this post I describe how I prepared these with my son and if it was possible to make this gourmet delicacy cheaper than the ready made product.&lt;/p&gt;
+&lt;h3&gt;The ingredients and their prices&lt;/h3&gt;
+&lt;div class="card"&gt;
+  &lt;div class="card-header"&gt;
+    Ingredients and their prices, circa 6 dishes
+  &lt;/div&gt;
+  &lt;div class="card-body"&gt;
+    &lt;blockquote class="card-blockquote"&gt;
+&lt;ul&gt;
+&lt;li&gt;For main dish&lt;/li&gt;
+&lt;ul&gt;
+&lt;li&gt; dehydred lasagne noodles, 12 pcs. = 250g, one ALDI pack contains 24 pcs 9x17 cm and costs 1.29 EUR, that gives cost 0.645EUR&lt;/li&gt;
+&lt;li&gt; one mozarella on the top 0.99 EUR&lt;/li&gt;
+&lt;li&gt; two gouda cheese slices on the top 0.6EUR&lt;/li&gt;
+&lt;/ul&gt;
+&lt;li&gt;For bolonese sauce&lt;/li&gt;
+&lt;ul&gt;
+&lt;li&gt; 500g of the mixture of minced pork and beef for the price of 3.39 EUR&lt;/li&gt;
+&lt;li&gt; one large can of tomatoes 1.6EUR&lt;/li&gt;
+&lt;li&gt; 2x onion 0.48 EUR&lt;/li&gt;
+&lt;li&gt; two cloves of garlic 0.2 EUR&lt;/li&gt;
+&lt;li&gt; 2x carrot 0.2 EUR&lt;/li&gt;
+&lt;li&gt; sunflower oil&lt;/li&gt;
+&lt;li&gt; a piece of leek, I didn't have celery so I put in the rest of the vegetables I had, 0EUR&lt;/li&gt;
+&lt;li&gt; buillon cube&lt;/li&gt;
+&lt;li&gt; thyme, oregano, pepper&lt;/li&gt;
+&lt;li&gt; salt&lt;/li&gt;
+&lt;/ul&gt;
+&lt;li&gt;For béchamel sauce&lt;/li&gt;
+&lt;ul&gt;
+&lt;li&gt; 0.5l of milk, 1.15 EUR per liter = 0.575 EUR&lt;/li&gt;
+&lt;li&gt; 50g of butter, 1.59 EUR per 250g = 0.318 EUR&lt;/li&gt;
+&lt;li&gt; 50g of flour, 0.79 EUR per kg = 0.039EUR&lt;/li&gt;
+&lt;li&gt; nutmeg&lt;/li&gt;
+&lt;li&gt; citron concentrat&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/ul&gt;
+    &lt;/blockquote&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;My total is 9.03 EUR.&lt;/strong&gt; I do not count in the price of spices and salt, but still it can be used as pretty good estimate given current price levels in Hamburg.
+max-width: 100%&lt;/p&gt;
+&lt;div class="h-100 d-flex align-items-center justify-content-center"&gt;
+&lt;img src="https://kontexty.com/images/lasagna/ingredients.jpg" alt="Lasagna ingredients" class="img-responsive center-block" style="margin: 0 auto; max-width:95%;"&gt;
+&lt;/div&gt;
+&lt;p&gt;From the amount of ingredients you can guess this is actually fairly complicated dish to prepare. It took me almost 3 hours to make them into the actual dish.&lt;/p&gt;
+&lt;h3&gt;Recipe&lt;/h3&gt;
+&lt;h4&gt;How many lasagna plates do I need?&lt;/h4&gt;
+&lt;p&gt;In one pack of dryed lasagna noodles there is 24 pieces. It would be too much to use at once, so you want to use just the half. That was actually the first step I have made, counted 12 pieces to be used. Dimensions of lasagna noodle in my pack are 17 x 9 cm.&lt;/p&gt;
+&lt;div class="h-100 d-flex align-items-center justify-content-center"&gt;
+&lt;img src="https://kontexty.com/images/lasagna/measuringNoodles.jpg" alt="Lasagna dimensions" class="img-responsive center-block" style="margin: 0 auto; max-width:95%;"&gt;
+&lt;/div&gt;
+
+&lt;h4&gt;0. How big pan and how many layers?&lt;/h4&gt;
+&lt;p&gt;Three layers of noodles are optimal. Tahat layering makes you doing in total nine layers from the bottom B-N-B-W-N-B-W-N-T, where bolonese souce=B, noodles=N, white souce = W, top cheese layer = T. Note that you want go for sufficiently deep pan to fit them in.&lt;/p&gt;
+&lt;p&gt;Another consideration is that when you have three noodle layers, optimally you want 4 noodles per layer. I have measured mine 
+So optimal would be to use pan of the dimensions for 1x4 noodles that is 17x36cm with some tolerance maybe 18 x 38cm. That was not the case of our equipment, so we have to cut and break our noodles. Circa 4.5 noodle per layer. So I have mady two full layers and the last layer contained less noodles. Actually the layers inside are more important than the layer on the top, which might get dry so there is no problem to use less noodles for it.&lt;/p&gt;
+&lt;div class="h-100 d-flex align-items-center justify-content-center"&gt;
+&lt;img src="https://kontexty.com/images/lasagna/fit.jpg" alt="Lasagna fitting" class="img-responsive center-block" style="margin: 0 auto; max-width:95%;"&gt;
+&lt;/div&gt;
+
+&lt;h4&gt;1. Prepare bolonese sauce&lt;/h4&gt;
+&lt;p&gt;First put chopped onion into the frying pan. Let it get brown color. Add salt, garlic and stear.  Put chopped carrot, leak and celery into the pan. Put tomatoes from the can and herbs. Cook for 15 minutes. &lt;/p&gt;
+&lt;p&gt;Make buillon from one cube and add it into the sauce in case its too dense. In general, you need a sauce contain as much water as possible to be able to boil lasagne in the oven. For doing so, prepare for one hour cooking at 180 degrees. When you feel lucky, you can heat up your oven just after 15 minutes of bolonese sauce cooking.&lt;/p&gt;
+&lt;h4&gt;2. Prepare béchamel sauce&lt;/h4&gt;
+&lt;p&gt;Melt the butter in a pan and when it is liquid, stir in the flour. The sauce may brown but must not burn. When you add the milk, lumps will form. Stir them thoroughly, but the trick is to add acid, like in this case lemon juice from concentrate. That will dissolve the lumps! With the milk, you can cook on the lowest setting, or turn it down completely. Note that there is less béchamel than bolognese sauce. That's okay, the layers of béchamel are much thinner than the layers of bolognese sauce.&lt;/p&gt;
+&lt;h4&gt;3. Put it together and make layers&lt;/h4&gt;
+&lt;p&gt;As I mentioned we create nine layers in total, namely B-N-B-W-N-B-W-N-T,&lt;/p&gt;
+&lt;p&gt;Grease a baking tray with butter or lard. The first layer of bolognese sauce serves to cook the first layer of noodles. Therefore, there is no harm in adding water or bouillon stock to this layer if there is any left over. This will prevent hard or burnt lasagna in the bottom layer.&lt;/p&gt;
+&lt;p&gt;The next layer of lasagne will cover the entire surface of the baking dish. With most casseroles, you'll be playing a little tetris with the lasagna.&lt;/p&gt;
+&lt;p&gt;The next layer of béchamel shall consist circa of half of your white sauce amount since there are just two layers of it.&lt;/p&gt;
+&lt;p&gt;There is no problem if you won't fill last layer of noodles fully, you can use few layers of gouda cheese instead. &lt;/p&gt;
+&lt;p&gt;The top layer is tricky. You shall put sliced mozarella cheese on top of the last noodle. There is a risk that the noodle or cheese will burn. So I put cheese layer actually in after 40 minutes of baking. At that time, my top noodle was dry and I flipped it before putting in cheese. &lt;/p&gt;
+&lt;h3&gt;Baking&lt;/h3&gt;
+&lt;p&gt;I have baked the whole pan for circa one hour at 180 degrees Celsius. This temerature is somehow optimal. When you have dryer sauces than I had, you might need less time. For inspiration there is a picture of finished product. If its too brown on the top, it is time to get it out of oven.&lt;/p&gt;
+&lt;div class="h-100 d-flex align-items-center justify-content-center"&gt;
+&lt;img src="https://kontexty.com/images/lasagna/final.jpg" alt="Final product" class="img-responsive center-block" style="margin: 0 auto; max-width:95%;"&gt;
+&lt;/div&gt;
+
+&lt;h3&gt;Serving and final price per kg&lt;/h3&gt;
+&lt;p&gt;Final weight of my product was 2.277Kg that means 3.97EUR per Kg. So I got lasagne for practically the same price as the ready made product. I have to say however, they taste better than those ready made. Good appetite!&lt;/p&gt;
+&lt;div class="h-100 d-flex align-items-center justify-content-center"&gt;
+&lt;img src="https://kontexty.com/images/lasagna/serving.jpg" alt="Good appetite" class="img-responsive center-block" style="margin: 0 auto; max-width:95%;"&gt;
+&lt;/div&gt;
+
+&lt;h3&gt;The cheep food policy is right&lt;/h3&gt;
+&lt;p&gt;You might have noticed, this is not one of those fancy food blogs. In order to get close to a price of 4 euros per kilo, it is not possible to buy expensive ingredients not present in the original product. I have to forgive myself for olive oil or even a mountain of parmesan on top, as some foodies recommend on their blogs. I would like to convince you however, that especially in an environment of high inflation, when the prices of basic ingredients are rocketing, the challenge of having affordable food is even more actual. &lt;/p&gt;
+&lt;p&gt;After the Second World War, the promotion of agriculture and local production in both western and eastern Europe became an important political tool to provide the population with enough food. More recently, we were used to EU agricultural policy and an abundance of subsidised produce that was available to all consumers at very cheap prices.  For me personally, this represents one of the fundamental values of the European Union, that even poorest EU citizens are not hungry because of the products such as 4 euro lasagne bolonese. Now, however, the situation is reversing and the certainty of cheap food is slowly disappearing from the EU. It will be interesting to see how the price of 1kg of ALDI lasagne develops over the next few years, because in some ways this is more important than how the price per Big Mac is evolving. I hope having a good food doesn't become an exclusive commodity for the rich.&lt;/p&gt;</description><guid>https://kontexty.com/posts/lasagna-cheaper-than-ready-made-product.html</guid><pubDate>Sun, 19 Feb 2023 20:00:00 GMT</pubDate></item><item><title>Why use Chrome and why not? Case insensitive CTRL-F</title><link>https://kontexty.com/posts/why-use-google-chrome-and-why-not.html</link><dc:creator>VK</dc:creator><description>&lt;p&gt;Google Chrome started to dominate web browsers usage stats as of 2012 and as of 2023 its &lt;a href="https://en.wikipedia.org/wiki/Usage_share_of_web_browsers"&gt;market share is over 60%&lt;/a&gt;. Its engine even made it into Windows default browser Edge. Regardless of whether you like it or not, Google Chrome is now the dominant web browser and one that's hard to avoid.&lt;/p&gt;
 &lt;p&gt;I'm basically a conservative user, so even though many people around me have switched to Google Chrome in recent years, I've resisted as much as I can and stuck with &lt;a href="https://www.mozilla.org/en-US/firefox/new/"&gt;Mozilla Firefox&lt;/a&gt;. I don't know exactly when it was, whether it was when some streaming service's DRM didn't work in Mozilla or when my favorite Linux distribution started using Chromium as its default browser, but Chrome-based browsers have found their way onto my computer.&lt;/p&gt;
 &lt;p&gt;Actually, the defining moment was probably how perfectly Chrome-based browsers integrate Google translate so that a page written in any language can be translated into English with a single click.  Still, I tend to prefer &lt;a href="https://www.chromium.org/Home/"&gt;Chromium&lt;/a&gt; over Chrome for its intention to be open source despite it used to have problems with downloading &lt;a href="https://www.theregister.com/2015/06/26/googles_not_listening_binary_blob_banished_from_chromium_build/"&gt;binary blobs&lt;/a&gt;.&lt;/p&gt;
 &lt;h3&gt;Case sensitive search in Google Chrome/Chromium&lt;/h3&gt;
