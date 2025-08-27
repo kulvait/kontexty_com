@@ -71,7 +71,12 @@ bg-dark
         </div>
         
 
-    </header><div class="e-content entry-content" itemprop="articleBody text">
+    </header><!-- Author signature --><div class="text-left">
+            <p class="byline author vcard p-author h-card"><span class="badge badge-primary" itemprop="author" style="color: white !important;">
+                    VK
+            </span></p>
+	</div>
+    <div class="e-content entry-content" itemprop="articleBody text">
     <h3>Selecting partition table GPT or MSDOS</h3>
 <p>In this post I will describe manual disk partitioning for the instalation of Debian 12. Debian Linux is in my opinion great OS. I like it also due to the fact, that it release cycle of two years is somehow convenient for me compared to something as Ubuntu with releases each 6 months. On 10.6.2023 the <a href="https://www.debian.org/News/2023/20230610">Debian 12 Bookworm</a> was released and I was about to install it on the disk. The situation somehow shifted in the recent years. Virtually every BIOS is using UEFI as a first option. </p>
 <p>For me personally, MSDOS partition table with MBR is the best option when the BIOS has an option to use it. It is total disaster when you install Windows with its UEFI on the machine as it is almost impossible to install something else. I am not an expert, but in my opinion UEFI is something such as locking bootloader in your mobile phone. Noone really wants it, it causes problems but the non free software vendors love it. So the first option is to disable UEFI in bios and turn on legacy boot, create MSDOS table with one or more primary partitions and you are done.</p>
@@ -89,12 +94,20 @@ bg-dark
 <h3>When you have to GPT</h3>
 <p>Do manual partitioning, in Debian 12 better from Live system than from graphical installer and select GPT instead of MSDOS.</p>
 <p>First partition needs to be FAT32, have boot flag and be mounted to /boot/efi.</p>
+        <!-- Horizontal line before the donation section -->
+        <hr class="post-divider">
+<!-- Donation section header --><h3 class="donation-header">When you read this far, consider supporting the blog</h3>
+
+        <!-- Donation message and button -->
+        <div class="donation-section">
+            <p>This is a personal blog, written with great effort to be useful. If you find it useful, consider a small donation. It serves as a welcome feedback that the content is appreciated, and it will help determine the amount of effort I put into future posts.</p>
+<a href="https://kulvait.github.io/donate/?amount=15&amp;currency=USD" target="donationWindow" onclick="window.open(this.href, 'donationWindow', 'width=500,height=600,scrollbars=yes,resizable=yes,toolbar=no,location=no,status=no,menubar=no')">
+    <img src="https://img.shields.io/badge/donate-%2415-red.svg" alt="Donate"></a>
+        </div>
     </div>
-	<div class="text-right">
-            <p class="byline author vcard p-author h-card"><span class="badge badge-primary" itemprop="author">
-                    <a class="u-url" href="../authors/vk.html">VK</a>
-            </span></p>
-	</div>
+<!-- Spacer using Bootstrap margin utility -->
+<div class="my-3"></div> <!-- Adds vertical space -->
+
     <aside class="postpromonav"><nav><ul class="pager hidden-print">
 <li class="previous">
                 <a href="lasagna-cheaper-than-ready-made-product.html" rel="prev" title="Lasagna cheaper than ready made product from the store?">Previous post</a>
