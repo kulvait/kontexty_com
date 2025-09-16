@@ -7,58 +7,62 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>https://kontexty.com/</loc>
-  <lastmod>2025-09-06T06:49:00Z</lastmod>
+  <lastmod>2025-09-16T16:57:00Z</lastmod>
  </url>
  <url>
   <loc>https://kontexty.com/archive.html</loc>
-  <lastmod>2025-09-06T07:25:00Z</lastmod>
+  <lastmod>2025-09-16T18:11:00Z</lastmod>
  </url>
  <url>
   <loc>https://kontexty.com/categories/</loc>
-  <lastmod>2025-09-06T06:49:00Z</lastmod>
+  <lastmod>2025-09-16T16:57:00Z</lastmod>
  </url>
  <url>
   <loc>https://kontexty.com/categories/cat_general-blog.html</loc>
-  <lastmod>2025-09-06T07:25:00Z</lastmod>
+  <lastmod>2025-09-16T18:11:00Z</lastmod>
  </url>
  <url>
   <loc>https://kontexty.com/categories/cat_software-blog.html</loc>
-  <lastmod>2025-09-06T06:49:00Z</lastmod>
+  <lastmod>2025-09-16T18:11:00Z</lastmod>
  </url>
  <url>
   <loc>https://kontexty.com/galleries/</loc>
-  <lastmod>2025-09-06T06:49:00Z</lastmod>
+  <lastmod>2025-09-16T16:57:00Z</lastmod>
  </url>
  <url>
   <loc>https://kontexty.com/listings/</loc>
-  <lastmod>2025-09-06T06:49:00Z</lastmod>
+  <lastmod>2025-09-16T16:57:00Z</lastmod>
  </url>
  <url>
   <loc>https://kontexty.com/posts/czech-christmas-2023.html</loc>
-  <lastmod>2025-09-06T06:49:00Z</lastmod>
+  <lastmod>2025-09-16T18:11:00Z</lastmod>
  </url>
  <url>
   <loc>https://kontexty.com/posts/fialas-government-2022-2025-nutella-from-germany-hope-from-mojzir-and-compassion-from-gaza.html</loc>
-  <lastmod>2025-09-06T06:49:00Z</lastmod>
+  <lastmod>2025-09-16T18:11:00Z</lastmod>
  </url>
  <url>
   <loc>https://kontexty.com/posts/francis-is-dead-long-live-the-pope.html</loc>
-  <lastmod>2025-09-06T06:49:00Z</lastmod>
+  <lastmod>2025-09-16T18:11:00Z</lastmod>
  </url>
  <url>
   <loc>https://kontexty.com/posts/gpt-partitioning-for-uefi-in-debian-12.html</loc>
-  <lastmod>2025-09-06T06:49:00Z</lastmod>
+  <lastmod>2025-09-16T18:11:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://kontexty.com/posts/kontext-is-everything.html</loc>
+  <lastmod>2025-09-16T18:11:00Z</lastmod>
  </url>
  <url>
   <loc>https://kontexty.com/posts/lasagna-cheaper-than-ready-made-product.html</loc>
-  <lastmod>2025-09-06T06:49:00Z</lastmod>
+  <lastmod>2025-09-16T18:11:00Z</lastmod>
  </url>
  <url>
   <loc>https://kontexty.com/posts/slunovrat-the-day-the-sun-returns.html</loc>
-  <lastmod>2025-09-06T07:25:00Z</lastmod>
+  <lastmod>2025-09-16T18:11:00Z</lastmod>
  </url>
  <url>
   <loc>https://kontexty.com/posts/why-use-google-chrome-and-why-not.html</loc>
-  <lastmod>2025-09-06T06:49:00Z</lastmod>
+  <lastmod>2025-09-16T18:11:00Z</lastmod>
  </url>
 </urlset>

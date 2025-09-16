@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GPT partitioning for UEFI in Debian 12 | Kontexty</title>
+<title>Installing Debian on UEFI Systems: A Guide to GPT Partitioning | Kontexty</title>
 <link href="../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
 <meta name="theme-color" content="#5670d4">
 <meta name="generator" content="Nikola (getnikola.com)">
@@ -14,10 +14,9 @@
 <link rel="prev" href="lasagna-cheaper-than-ready-made-product.html" title="Lasagna cheaper than ready made product from the store?" type="text/html">
 <link rel="next" href="czech-christmas-2023.html" title="Czech Christmas 2023, Compassion and Klánovice Fireworks" type="text/html">
 <meta property="og:site_name" content="Kontexty">
-<meta property="og:title" content="GPT partitioning for UEFI in Debian 12">
+<meta property="og:title" content="Installing Debian on UEFI Systems: A Guide to GPT Partitioning">
 <meta property="og:url" content="https://kontexty.com/posts/gpt-partitioning-for-uefi-in-debian-12.html">
-<meta property="og:description" content="Selecting partition table GPT or MSDOS
-In this post I will describe manual disk partitioning for the instalation of Debian 12. Debian Linux is in my opinion great OS. I like it also due to the fact, t">
+<meta property="og:description" content="In this post, I describe the process of manual disk partitioning for installing Debian 12 Bookworm or Debian 13 Trixie and the issues that can arise with a locked bootloader. Debian is, in my opinion,">
 <meta property="og:type" content="article">
 <meta property="article:published_time" content="2023-06-29T19:00:00+02:00">
 </head>
@@ -61,7 +60,7 @@ bg-dark
         
         
         
-<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h2 class="p-name entry-title" itemprop="headline name">GPT partitioning for UEFI in Debian 12</h2>
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h2 class="p-name entry-title" itemprop="headline name">Installing Debian on UEFI Systems: A Guide to GPT Partitioning</h2>
 
         <div class="metadata">
             <p class="dateline">
@@ -77,23 +76,114 @@ bg-dark
             </span></p>
 	</div>
     <div class="e-content entry-content" itemprop="articleBody text">
-    <h3>Selecting partition table GPT or MSDOS</h3>
-<p>In this post I will describe manual disk partitioning for the instalation of Debian 12. Debian Linux is in my opinion great OS. I like it also due to the fact, that it release cycle of two years is somehow convenient for me compared to something as Ubuntu with releases each 6 months. On 10.6.2023 the <a href="https://www.debian.org/News/2023/20230610">Debian 12 Bookworm</a> was released and I was about to install it on the disk. The situation somehow shifted in the recent years. Virtually every BIOS is using UEFI as a first option. </p>
-<p>For me personally, MSDOS partition table with MBR is the best option when the BIOS has an option to use it. It is total disaster when you install Windows with its UEFI on the machine as it is almost impossible to install something else. I am not an expert, but in my opinion UEFI is something such as locking bootloader in your mobile phone. Noone really wants it, it causes problems but the non free software vendors love it. So the first option is to disable UEFI in bios and turn on legacy boot, create MSDOS table with one or more primary partitions and you are done.</p>
+    <p>In this post, I describe the process of manual disk partitioning for installing <a href="https://www.debian.org/News/2023/20230610">Debian 12 Bookworm</a> or <a href="https://www.debian.org/News/2025/20250809">Debian 13 Trixie</a> and the issues that can arise with a locked bootloader. Debian is, in my opinion, an excellent operating system. I particularly appreciate its two-year release cycle, which feels far more practical than e.g. Ubuntu’s six-month cadence.</p>
+<p>The recent industry-wide push for UEFI makes it virtually unavoidable on modern hardware. On paper, the features like "the GPT partitioning scheme that supports disks over 2TB" sound like pure progress. In practice, however, the UEFI standard has been heavily shaped by large vendors like Microsoft, Apple, and Google. They have implemented features such as Secure Boot, which are marketed as security measures but often functionally serve to lock users into a particular operating system. This is why installing Linux on a machine with pre-installed Windows has become an unnecessarily difficult struggle.</p>
+<p>This guide will show you how, in most cases, you can take back control of your computer from vendors like Microsoft, Apple, or Google. You’ll learn how to manually configure disk partitions, using the older MBR layout when appropriate, or the GPT scheme required by UEFI systems. The goal is not only to ensure that Debian installs cleanly and boots reliably, but also to help you understand what’s happening behind the scenes, so you're not left wondering why the installer made certain choices for you.</p>
 <!-- TEASER_END -->
 
-<h4>When you can not install anything</h4>
-<p>Typically with Windows on your machine it is very tricky to even initiate Linux instalation even from UEFI USB disks because of this UEFI "protections" that Windows is installing. If that is your situation, try to clen CMOS and disconnect hard drive, which contains Windows. That might e.g. on some Windows preinstalled NUCs or cheap HP/Dell laptops be the only option to install Linux. Try also to prepare UEFI USB with linux using Rufus. When everything fails, you are probably not able to install Linux to your machine at all.</p>
-<p>So let me now assume, that you at least have USB disk with <a href="Debian%20ISO">https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/</a> on it and it is able to boot.</p>
-<h4>When MSDOS partition table does not work</h4>
-<p>Unfortunatelly some bioses now do not support MSDOS tables with MBR at all. And for example my BIOS on high end motherboard had legacy support but was not able to detect and boot from M.2 SSD formatted as MBR with MSDOS partition. </p>
-<h4>Forcing my BIOS to accept my decision using MSDOS table</h4>
-<p>But what if you managed to install Linux but it is not booting? There is one option when you want to boot something like this and nothing is working. </p>
-<p>If there is no other option than using UEFI disks, you still have a chance to boot your system from it. You just have to have some live USB stick with grub. On the grub screen press e, then issue ls and then issue boot (my partition), where (my partition) is the partition with the MBR bootable system.</p>
-<p>When you'd like to boot UEFI enabled disk, then it is trickier but try to Google it.</p>
-<h3>When you have to GPT</h3>
-<p>Do manual partitioning, in Debian 12 better from Live system than from graphical installer and select GPT instead of MSDOS.</p>
-<p>First partition needs to be FAT32, have boot flag and be mounted to /boot/efi.</p>
+<h3>Prerequisite: Creating a Bootable Debian USB Installer (UEFI-Ready)</h3>
+<p>There are several ways to install Debian, but in this guide we’ll focus on the most straightforward: creating a bootable USB stick that contains both a live system and the Debian installer. This approach serves two important purposes. First, it allows you to test whether your hardware supports the intended installation method, UEFI or legacy BIOS, and confirms that Debian can at least run in live mode. Second, it gives you the opportunity to perform disk partitioning outside the installer, using tools in the live environment, giving you greater control over the setup before installation begins.</p>
+<p>It's worth noting that the Debian <a href="https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/">Live ISO images</a> are typically <strong>hybrid ISOs</strong>. This means they contain both an MBR and a GPT partition layout and are designed to be bootable on either legacy BIOS or UEFI systems, provided the USB is created correctly.</p>
+<p>In a typical situation on Linux, you can write the image directly to your USB drive (e.g., <code>/dev/sdb</code>) using the <code>dd</code> command. <strong>Warning: This will irrevocably destroy all data on the target device. Double-check the target device (<code>of=</code> parameter) to avoid overwriting your system disk.</strong></p>
+<div class="code"><pre class="code literal-block">dd<span class="w"> </span><span class="k">if</span><span class="o">=</span>./debian-live-13.1.0-amd64-lxde.iso<span class="w"> </span><span class="nv">of</span><span class="o">=</span>/dev/sdX<span class="w"> </span><span class="nv">bs</span><span class="o">=</span>128K<span class="w"> </span><span class="nv">status</span><span class="o">=</span>progress<span class="w"> </span><span class="nv">oflag</span><span class="o">=</span>sync
+</pre></div>
+
+<p>On Windows, tools like <a href="https://rufus.ie/en/">Rufus</a> can be used to write the Debian ISO image. When using Rufus, you will be presented with a choice between MBR and GPT for the partition scheme of the USB drive itself. For a pure UEFI setup, selecting GPT is the appropriate choice, as it ensures full compatibility with the UEFI boot process.</p>
+<h3>Booting the Installation Media</h3>
+<p>Getting the Live Debian system to boot from your USB installer is often the first hurdle. The default UEFI settings, combined with an existing OS, frequently ignore your boot selection. Follow these steps to overcome this:</p>
+<ol>
+<li>
+<p><strong>First Attempt:</strong></p>
+<ul>
+<li>Insert the USB and power on the device.</li>
+<li>Immediately access the <strong>boot menu</strong> (usually by pressing a key like <code>F12</code>, <code>F10</code>, or <code>Esc</code> during startup—check your motherboard's manual).</li>
+<li>
+<strong>Manually select your USB drive</strong> from the list. If you see multiple entries for it, try both the <code>UEFI: USB Drive</code> option and the non-UEFI (or "Legacy") option.</li>
+</ul>
+</li>
+<li>
+<p><strong>Tweak BIOS/UEFI Settings:</strong></p>
+<ul>
+<li>If the first attempt fails, restart and enter the <strong>BIOS/UEFI firmware settings</strong> (typically by pressing <code>Delete</code> or <code>F2</code>).</li>
+<li>Navigate to the "Boot" tab and ensure <strong>Boot from USB</strong> or <strong>External Device Boot</strong> is enabled.</li>
+<li>Save changes and exit, then try the boot menu (Step 1) again.</li>
+</ul>
+</li>
+<li>
+<p><strong>Final Resort: Physically Disconnect the Drive:</strong></p>
+<ul>
+<li>If the system still refuses to boot from USB, the most reliable method is to <strong>physically disconnect the internal drive</strong> containing Windows or macOS.</li>
+<li>With only the target disk and your USB drive connected, the firmware has no choice but to boot from your Debian installer. This almost always works.</li>
+</ul>
+</li>
+</ol>
+<p>Now that you've adjusted your BIOS settings and disconnected any drives with preinstalled systems, you might find that the Debian live system still refuses to boot. Some systems are locked down so tightly, via Secure Boot, firmware restrictions, or vendor-specific quirks, that installing Linux becomes impractical without risking a working setup. In such cases, it's often better to walk away than to force an installation that may compromise the machine. There are still few points you can consider on your own risk.</p>
+<h4>Secure Boot</h4>
+<p>You can often leave Secure Boot enabled, and the Debian installer will usually boot successfully using its signed bootloader. This is made possible by the shim bootloader, which enables Debian's bootloader signature to be trusted via Microsoft's Secure Boot keys, preinstalled on most UEFI systems. However, if you encounter issues, disabling Secure boot is the simplest troubleshooting step. For more advanced use cases debian provides <a href="https://wiki.debian.org/SecureBoot">extensive documentation on Secure Boot</a> to which you can resort.</p>
+<h4>Boot Mode and Partitioning Must Match</h4>
+<p>The boot mode you choose—UEFI or Legacy/MBR (CSM)—determines how Debian will be installed. If you boot the installer in UEFI mode, it expects to install to a GPT-formatted disk. If you boot in Legacy mode, it will use an MSDOS/MBR layout. These modes are not interchangeable, and mismatching them can lead to a system that won't boot. Exception is when your BIOS do support legacy boot but you still want MBR layout of the disk with Debian. This won't boot but you can overcome it as I explain later.</p>
+<h4>Empty Disk Assumed</h4>
+<p>This guide assumes you're installing Debian on a completely empty disk. Dual-booting with another OS is possible but adds complexity and is not covered here. Either wipe your existing disk or use a new one. If needed, here’s a quick way to erase a disk using <code>dd</code>:</p>
+<div class="code"><pre class="code literal-block">dd<span class="w"> </span><span class="k">if</span><span class="o">=</span>/dev/zero<span class="w"> </span><span class="nv">of</span><span class="o">=</span>/dev/sdX<span class="w"> </span><span class="nv">bs</span><span class="o">=</span>128K<span class="w"> </span><span class="nv">status</span><span class="o">=</span>progress
+</pre></div>
+
+<p>Replace /dev/sdX with your actual drive identifier and remember, all data will be permanently lost.</p>
+<h3>Formating the disk: Selecting partition table GPT or MSDOS</h3>
+<p>If you've managed to get the live system running, you're ready for the first real decision: which partition table to use—GPT or MSDOS (MBR). Personally, I prefer the MSDOS partition table (MBR)—it’s simple and works well when your BIOS supports legacy boot. To set it up, just run:</p>
+<div class="code"><pre class="code literal-block">fdisk<span class="w"> </span>/dev/sdX
+</pre></div>
+
+<p>Use fdisk to create your partitions manually. It's a straightforward process, especially for minimal setups.
+1. Press <code>n</code> – create a new partition (repeat for additional partitions)<br>
+2. Press <code>t</code> – change partition type (for EFI System Partition, use type <code>1</code>)<br>
+3. Press <code>w</code> – write changes and exit</p>
+<h3>When You Must Use GPT</h3>
+<p>In some cases, <strong>MSDOS just won’t work</strong>, especially on newer hardware where BIOS/UEFI firmware has dropped proper legacy boot support. For example, on one high-end motherboard I tested, legacy mode was available in the BIOS, but it <strong>refused to boot from an M.2 SSD</strong> formatted with an MSDOS partition table. In such situations, you’ll need to use <strong>GPT (GUID Partition Table)</strong> instead.</p>
+<h4>Creating a GPT Partition Table with <code>fdisk</code> or <code>gdisk</code>
+</h4>
+<p>To initialize a disk with GPT using <code>fdisk</code>, run:</p>
+<div class="code"><pre class="code literal-block">fdisk<span class="w"> </span>/dev/sdX
+</pre></div>
+
+<p>Once inside the fdisk prompt, press <code>g</code> to create a new GPT partition table. Similarly, pressing <code>o</code> creates an MBR partition table, which is the default.</p>
+<p>While fdisk supports creating GPT partition tables, the tool was originally designed for MBR (MSDOS) partitions. For more advanced and GPT focused tool, the utility <a href="https://www.rodsbooks.com/gdisk/"><code>gdisk</code></a> offers familiar <code>fdisk</code> like interface.</p>
+<p>To use gdisk:</p>
+<div class="code"><pre class="code literal-block">gdisk<span class="w"> </span>/dev/sdX
+</pre></div>
+
+<p>Replace /dev/sdX with your actual device (e.g., /dev/sda or /dev/nvme0n1).</p>
+<h4>EFI System Partition Requirements</h4>
+<p>When using GPT with UEFI boot, you <strong>must create an EFI System Partition (ESP)</strong>:</p>
+<ul>
+<li>
+<strong>Filesystem</strong>: <code>FAT32</code>  </li>
+<li>
+<strong>Size</strong>: <strong>500 MB</strong> (recommended, generous even for dual-boot setups)  </li>
+<li>
+<strong>Flags</strong>: <code>boot</code>, <code>esp</code>  </li>
+</ul>
+<p>This partition is required for UEFI firmware to detect and boot your OS. In the Debian installer, make sure to mount this partition to <code>/boot/efi</code>. Without this, GRUB won't be installed correctly for UEFI Debian instalation.</p>
+<h4>Forcing BIOS to Boot MBR When It Really Doesn’t Want To</h4>
+<p>If your BIOS/UEFI flat-out refuses to boot from MBR—even when you’ve done everything “correctly”—there’s still a potential workaround:</p>
+<ol>
+<li>Boot from a Live USB that includes GRUB with UEFI support.  </li>
+<li>At the GRUB menu, press <code>e</code> to edit the boot entry.  </li>
+<li>Use GRUB’s command line (<code>c</code> or press <code>Ctrl + X</code> then <code>c</code> depending on the version) and run <code>ls</code> to list devices.  </li>
+<li>
+<p>Manually boot the system using GRUB’s commands, e.g.:</p>
+<p><code>set root=(hd0,msdos1)
+linux /boot/vmlinuz root=/dev/sdX1
+initrd /boot/initrd.img
+boot</code></p>
+<p><em>(Adjust paths and device names according to your setup.)</em></p>
+</li>
+<li>
+<p>Sometimes <code>boot</code> (my partition), where (my partition) is the partition with the MBR bootable system will work.</p>
+</li>
+</ol>
+<hr>
+<p><strong>Whoo!</strong> GRUB can boot your MBR-partitioned system even when the firmware says "no" to a legacy boot! You might not fully agree when you have to do this over and over again but for some, this might feel like a glorious victory over vendor-imposed UEFI restrictions.</p>
+<p>At the end of the day, it boots. 🎉</p>
         <!-- Horizontal line before the donation section -->
         <hr class="post-divider">
 <!-- Donation section header --><h3 class="donation-header">When you read this far, consider supporting the blog</h3>
