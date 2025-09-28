@@ -137,18 +137,13 @@ bg-dark
 </ul>
 </li>
 </ol>
-<p>Now that you've adjusted your BIOS settings and disconnected any drives with preinstalled systems, you might find that the Debian live system still refuses to boot. Some systems are locked down so tightly, via Secure Boot, firmware restrictions, or vendor-specific quirks, that installing Linux becomes impractical without risking a working setup. In such cases, it's often better to walk away than to force an installation that may compromise the machine. There are still few points you can consider on your own risk.</p>
-<h4>Secure Boot</h4>
-<p>You can often leave Secure Boot enabled, and the Debian installer will usually boot successfully using its signed bootloader. This is made possible by the shim bootloader, which enables Debian's bootloader signature to be trusted via Microsoft's Secure Boot keys, preinstalled on most UEFI systems. However, if you encounter issues, disabling Secure boot is the simplest troubleshooting step. For more advanced use cases debian provides <a href="https://wiki.debian.org/SecureBoot">extensive documentation on Secure Boot</a> to which you can resort.</p>
-<h4>Boot Mode and Partitioning Must Match</h4>
-<p>The boot mode you choose—UEFI or Legacy/MBR (CSM)—determines how Debian will be installed. If you boot the installer in UEFI mode, it expects to install to a GPT-formatted disk. If you boot in Legacy mode, it will use an MSDOS/MBR layout. These modes are not interchangeable, and mismatching them can lead to a system that won't boot. Exception is when your BIOS do support legacy boot but you still want MBR layout of the disk with Debian. This won't boot but you can overcome it as I explain later.</p>
-<h4>Empty Disk Assumed</h4>
+<p>Now that you've adjusted your BIOS settings and disconnected any drives with preinstalled systems, you might find that the Debian live system still refuses to boot. Some systems are locked down so tightly, via Secure Boot, firmware restrictions, or vendor-specific quirks, that installing Linux becomes impractical without risking a working setup. In such cases, it's often better to walk away than to force an installation that may compromise the machine.</p>
+<h3>Formating the disk: Selecting partition table GPT or MSDOS</h3>
 <p>This guide assumes you're installing Debian on a completely empty disk. Dual-booting with another OS is possible but adds complexity and is not covered here. Either wipe your existing disk or use a new one. If needed, here’s a quick way to erase a disk using <code>dd</code>:</p>
 <div class="code"><pre class="code literal-block">dd<span class="w"> </span><span class="k">if</span><span class="o">=</span>/dev/zero<span class="w"> </span><span class="nv">of</span><span class="o">=</span>/dev/sdX<span class="w"> </span><span class="nv">bs</span><span class="o">=</span>128K<span class="w"> </span><span class="nv">status</span><span class="o">=</span>progress
 </pre></div>
 
-<p>Replace /dev/sdX with your actual drive identifier and remember, all data will be permanently lost.</p>
-<h3>Formating the disk: Selecting partition table GPT or MSDOS</h3>
+<p>Replace <code>/dev/sdX</code> with your actual drive identifier and remember, all data will be permanently lost.</p>
 <p>If you've managed to get the live system running, you're ready for the first real decision: which partition table to use, GPT or MSDOS (MBR). Personally, I prefer the MSDOS partition table (MBR)—it’s simple and works well when your BIOS supports legacy boot. To set it up, just run:</p>
 <div class="code"><pre class="code literal-block">fdisk<span class="w"> </span>/dev/sdX
 </pre></div>
@@ -159,6 +154,8 @@ bg-dark
 3. Press <code>w</code> – write changes and exit</p>
 <h3>When You Must Use GPT</h3>
 <p>In some cases, <strong>MSDOS just won’t work</strong>, especially on newer hardware where BIOS/UEFI firmware has dropped proper legacy boot support. For example, on one high-end motherboard I tested, legacy mode was available in the BIOS, but it <strong>refused to boot from an M.2 SSD</strong> formatted with an MSDOS partition table. In such situations, you’ll need to use <strong>GPT (GUID Partition Table)</strong> instead.</p>
+<h4>Boot Mode and Partitioning Must Match</h4>
+<p>The boot mode you choose—UEFI or Legacy/MBR (CSM)—determines how Debian will be installed. If you boot the installer in UEFI mode, it expects to install to a GPT-formatted disk. If you boot in Legacy mode, it will use an MSDOS/MBR layout. These modes are not interchangeable, and mismatching them can lead to a system that won't boot. Exception is when your BIOS do support legacy boot but you still want MBR layout of the disk with Debian. This won't boot but you can overcome it as I explain later.</p>
 <h4>Creating a GPT Partition Table with <code>fdisk</code> or <code>gdisk</code>
 </h4>
 <p>To initialize a disk with GPT using <code>fdisk</code>, run:</p>
