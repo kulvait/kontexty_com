@@ -81,16 +81,17 @@ bg-dark
 <p>This guide will show you how, in most cases, you can take back control of your computer from vendors like Microsoft, Apple, or Google. You’ll learn how to manually configure disk partitions, using the older MBR layout when appropriate, or the GPT scheme required by UEFI systems. The goal is not only to ensure that Debian installs cleanly and boots reliably, but also to help you understand what’s happening behind the scenes, so you're not left wondering why the installer made certain choices for you.</p>
 <!-- TEASER_END -->
 
-<h3>Prerequisite: Creating a Bootable Debian USB Installer (UEFI-Ready)</h3>
+<h2>Prerequisite: Creating a Bootable Debian USB Installer (UEFI-Ready)</h2>
 <p>There are several ways to install Debian, but in this guide we’ll focus on the most straightforward: creating a bootable USB stick that contains both a live system and the Debian installer. This approach serves two important purposes. First, it allows you to test whether your hardware supports the intended installation method, UEFI or legacy BIOS, and confirms that Debian can at least run in live mode. Second, it gives you the opportunity to perform disk partitioning outside the installer, using tools in the live environment, giving you greater control over the setup before installation begins.</p>
-<p>It's worth noting that the Debian <a href="https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/">Live ISO images</a> are typically <strong>hybrid ISOs</strong>. This means they contain both an MBR and a GPT partition layout and are designed to be bootable on either legacy BIOS or UEFI systems, provided the USB is created correctly.</p>
+<p>It's worth noting that the Debian <a href="https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/">Live ISO images</a> are <strong>hybrid ISOs</strong>. This means they can be either written to a USB stick or burned to a DVD. They include both an MBR and a GPT partition layouts and are designed to be bootable on either legacy BIOS or UEFI systems, regardless on the instalation media.</p>
 <p>In a typical situation on Linux, you can write the image directly to your USB drive (e.g., <code>/dev/sdb</code>) using the <code>dd</code> command. <strong>Warning: This will irrevocably destroy all data on the target device. Double-check the target device (<code>of=</code> parameter) to avoid overwriting your system disk.</strong></p>
 <div class="code"><pre class="code literal-block">dd<span class="w"> </span><span class="k">if</span><span class="o">=</span>./debian-live-13.1.0-amd64-lxde.iso<span class="w"> </span><span class="nv">of</span><span class="o">=</span>/dev/sdX<span class="w"> </span><span class="nv">bs</span><span class="o">=</span>128K<span class="w"> </span><span class="nv">status</span><span class="o">=</span>progress<span class="w"> </span><span class="nv">oflag</span><span class="o">=</span>sync
 </pre></div>
 
-<p>On Windows, tools like <a href="https://rufus.ie/en/">Rufus</a> can be used to write the Debian ISO image. When using Rufus, you will be presented with a choice between MBR and GPT for the partition scheme of the USB drive itself. For a pure UEFI setup, selecting GPT is the appropriate choice, as it ensures full compatibility with the UEFI boot process.</p>
+<p>On Windows, <a href="https://rufus.ie/en/">Rufus</a> can be used to write the Debian ISO image to a USB drive. Rufus offers two modes: <strong>DD image mode</strong> and <strong>ISO image mode</strong>. In <strong>DD image mode</strong>, Rufus creates an exact bit-for-bit copy of the Debian ISO, just like the Linux <code>dd</code> command. However, certain broken or non-standard UEFI implementations might fail to boot from the exact copy of the hybrid ISO.</p>
+<p>In <strong>ISO image mode</strong>, Rufus extracts the files from the ISO and writes them to the USB stick in a conventional file system layout (e.g., FAT32). This mode does not preserve the hybrid partition structure but can sometimes be more compatible with systems that have UEFI firmware quirks or bugs. A lot of Rufus development focuses on addressing these issues, and there is no direct Linux alternative I am aware of. However, it may not retain the signed bootloaders, which could break <strong>Secure Boot</strong> functionality.</p>
 <h3>Booting the Installation Media</h3>
-<p>Getting the Live Debian system to boot from your USB installer is often the first hurdle. The default UEFI settings, combined with an existing OS, frequently ignore your boot selection. Follow these steps to overcome this:</p>
+<p>Booting a Debian installer, especially on modern systems, can be frustrating because several firmware features and tools interfere in different ways. Below are the most common issues you may encounter and how to overcome them:</p>
 <ol>
 <li>
 <p><strong>First Attempt:</strong></p>
@@ -98,22 +99,41 @@ bg-dark
 <li>Insert the USB and power on the device.</li>
 <li>Immediately access the <strong>boot menu</strong> (usually by pressing a key like <code>F12</code>, <code>F10</code>, or <code>Esc</code> during startup—check your motherboard's manual).</li>
 <li>
-<strong>Manually select your USB drive</strong> from the list. If you see multiple entries for it, try both the <code>UEFI: USB Drive</code> option and the non-UEFI (or "Legacy") option.</li>
+<strong>Manually select your USB drive</strong> from the list. If you see multiple entries for it, try both the <code>UEFI: USB Drive</code> option and the non-UEFI (or "Legacy") option, test both.</li>
+</ul>
+</li>
+<li>
+<p><strong>Disable Fast Boot in Windows</strong></p>
+<ul>
+<li>Fast boot is a Windows mechanism that prevents full system shutdown to boot faster. However, on boot it skips important parts of the boot sequence and needs to be disabled.</li>
+<li>The following PowerShell command disables it, run as Administrator:</li>
+<li><code>Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Power" -Name HiberbootEnabled -Value 0</code></li>
+<li>Reboot and try the boot menu (Step 1) again.</li>
 </ul>
 </li>
 <li>
 <p><strong>Tweak BIOS/UEFI Settings:</strong></p>
 <ul>
-<li>If the first attempt fails, restart and enter the <strong>BIOS/UEFI firmware settings</strong> (typically by pressing <code>Delete</code> or <code>F2</code>).</li>
+<li>If previous attempts fail, restart and enter the <strong>BIOS/UEFI firmware settings</strong> (typically by pressing <code>Delete</code> or <code>F2</code>).</li>
 <li>Navigate to the "Boot" tab and ensure <strong>Boot from USB</strong> or <strong>External Device Boot</strong> is enabled.</li>
 <li>Save changes and exit, then try the boot menu (Step 1) again.</li>
 </ul>
 </li>
 <li>
-<p><strong>Final Resort: Physically Disconnect the Drive:</strong></p>
+<p><strong>Physically Disconnect the Drive with operating system:</strong></p>
 <ul>
 <li>If the system still refuses to boot from USB, the most reliable method is to <strong>physically disconnect the internal drive</strong> containing Windows or macOS.</li>
-<li>With only the target disk and your USB drive connected, the firmware has no choice but to boot from your Debian installer. This almost always works.</li>
+<li>With only instalation media and potentially blank disk connected, the firmware has no choice but to boot from your Debian installer. This almost always works.</li>
+</ul>
+</li>
+<li>
+<p><strong>Disable Secure Boot</strong></p>
+<ul>
+<li>Secure Boot is a UEFI feature that only allows bootloaders signed by keys stored in the firmware (BIOS/UEFI). Typically, this includes Microsoft-signed bootloaders, such as those used by Windows.</li>
+<li>To alleviate concerns about vendor lock-in, bootloaders of major Linux distributions, including Debian, are signed with a Microsoft-recognized key.</li>
+<li>To achieve this, Linux distributions use a tool called <strong>shim</strong>. Note that Microsoft only allows the booting of signed kernels via <strong>shim-signed GRUB</strong>, which is not a requirement of UEFI itself.</li>
+<li>Newer hardware may ship with updated Microsoft keysets that don’t recognize older <strong>shim</strong> signatures, breaking compatibility. USB drives created with Rufus in ISO mode can also violate Secure Boot expectations.</li>
+<li>When in troubles, the best option is to disable Secure Boot or refer to the <a href="https://wiki.debian.org/SecureBoot">extensive documentation on Secure Boot</a> provided by Debian.</li>
 </ul>
 </li>
 </ol>
@@ -129,7 +149,7 @@ bg-dark
 
 <p>Replace /dev/sdX with your actual drive identifier and remember, all data will be permanently lost.</p>
 <h3>Formating the disk: Selecting partition table GPT or MSDOS</h3>
-<p>If you've managed to get the live system running, you're ready for the first real decision: which partition table to use—GPT or MSDOS (MBR). Personally, I prefer the MSDOS partition table (MBR)—it’s simple and works well when your BIOS supports legacy boot. To set it up, just run:</p>
+<p>If you've managed to get the live system running, you're ready for the first real decision: which partition table to use, GPT or MSDOS (MBR). Personally, I prefer the MSDOS partition table (MBR)—it’s simple and works well when your BIOS supports legacy boot. To set it up, just run:</p>
 <div class="code"><pre class="code literal-block">fdisk<span class="w"> </span>/dev/sdX
 </pre></div>
 
