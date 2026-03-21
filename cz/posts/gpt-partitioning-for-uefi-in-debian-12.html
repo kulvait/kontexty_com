@@ -149,7 +149,7 @@ Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\P
 </li>
 </ol>
 <p>Now that you've adjusted your BIOS settings and disconnected any drives with preinstalled systems, you might find that the Debian live system still refuses to boot. Some systems are locked down so tightly, via Secure Boot, firmware restrictions, or vendor-specific quirks, that installing Linux becomes impractical without risking a working setup. In such cases, it's often better to walk away than to force an installation that may compromise the machine.</p>
-<h3>Formating the disk: Selecting partition table GPT or MSDOS</h3>
+<h3>Formating the disk</h3>
 <p>This guide assumes you're installing Debian on a completely empty disk. Dual-booting with another OS is possible but adds complexity and is not covered here. Either wipe your existing disk or use a new one. If needed, here’s a quick way to erase a disk using <code>dd</code>:</p>
 <div class="code"><pre class="code literal-block">dd<span class="w"> </span><span class="k">if</span><span class="o">=</span>/dev/zero<span class="w"> </span><span class="nv">of</span><span class="o">=</span>/dev/sdX<span class="w"> </span><span class="nv">bs</span><span class="o">=</span>128K<span class="w"> </span><span class="nv">status</span><span class="o">=</span>progress
 </pre></div>
@@ -160,32 +160,14 @@ Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\P
 <h4><strong>MS-DOS (MBR)</strong></h4>
 <ul>
 <li>
-<strong>Booting:</strong><br>
-The BIOS reads the <strong>Master Boot Record (first 512 bytes of the disk)</strong>, which contains the bootloader code. The BIOS does <strong>not</strong> interpret filesystems—it simply loads the bootloader, such as <strong>GRUB</strong> or the <strong>Windows bootloader</strong>.  </li>
-</ul>
-<p>In the MBR, there is also a <strong>partition table</strong> that describes the layout of the disk, including primary and extended partitions. This allows bootloaders to locate and boot operating systems from partitions formatted as <strong>FAT, ext2/3/4, Btrfs, or other filesystems</strong>, even though the BIOS itself does not understand these filesystems.</p>
-<ul>
+<p><strong>Booting:</strong><br>
+The BIOS reads the <strong>Master Boot Record (first 512 bytes of the disk)</strong>, which contains the bootloader code. The BIOS does <strong>not</strong> interpret filesystems, it simply loads the bootloader, such as <strong>GRUB</strong> or the <strong>Windows bootloader</strong>. MBR also contains <strong>partition table</strong> that describes the layout of the disk, including primary and extended partitions. BIOS itself need no drivers for filesystems such as <strong>FAT, ext or others</strong>.</p>
+</li>
 <li>
 <p><strong>Partition metadata:</strong>
-In MBR (MS-DOS) partition tables, each partition entry contains two main pieces of metadata relevant for booting and OS recognition:</p>
+In MBR (MS-DOS) partition tables, each partition entry contains two main pieces of metadata relevant for booting, bootloader logic and OS recognition.  <strong>Boot flag (status byte)</strong>  stored in the <strong>first byte</strong> of the partition entry.  Value <code>0x80</code> indicates bootable (active) partition, while <code>0x00</code> means inactive partition. <strong>Partition type byte</strong> is stored in the <strong>5th byte</strong> of the partition entry. Itdentifies the filesystem or operating system type. BIOS ignores this byte for booting; it’s used by OSes and partitioning tools. Common Partition Type Codes are</p>
 </li>
-<li>
-<p><strong>Boot flag (status byte)</strong>  </p>
-</li>
-<li>Stored in the <strong>first byte</strong> of the partition entry.  </li>
-<li>
-<code>0x80</code> → bootable (active) partition  </li>
-<li>
-<p><code>0x00</code> → inactive partition  </p>
-</li>
-<li>
-<p><strong>Partition type byte</strong>  </p>
-</li>
-<li>Stored in the <strong>5th byte</strong> of the partition entry.  </li>
-<li>Identifies the filesystem or operating system type.  </li>
-<li>BIOS ignores this byte for booting; it’s used by OSes and partitioning tools.</li>
 </ul>
-<p>Common Partition Type Codes are</p>
 <table>
 <thead><tr>
 <th>Type (Hex)</th>
@@ -220,11 +202,9 @@ In MBR (MS-DOS) partition tables, each partition entry contains two main pieces 
 </table>
 <ul>
 <li>
-<strong>Bootable Partition Flag:</strong><br>
-On a bootable disk, one partition typically has the <strong><code>boot</code> flag</strong> set, which historically indicated the partition from which the operating system should be loaded. With modern bootloaders, such as <strong>GRUB</strong>, this flag is <strong>technically unnecessary</strong>, because the bootloader is usually installed directly in the <strong>MBR</strong>.  </li>
-</ul>
-<p>However, in older systems like MS-DOS, the BIOS and simple bootloaders relied on the <strong>boot flag</strong> to locate the second-stage bootloader in the partition's first sector.</p>
-<ul>
+<p><strong>Bootable Partition Flag:</strong><br>
+On a bootable disk, one partition typically has the <strong><code>boot</code> flag</strong> set, which historically indicated the partition from which the operating system should be loaded. With modern bootloaders, such as <strong>GRUB</strong>, this flag is <strong>technically unnecessary</strong>, because the bootloader select second stage bootloader on demand. Historically, the BIOS and simple bootloaders relied on the <strong>boot flag</strong> to locate the second-stage bootloader.</p>
+</li>
 <li>
 <p><strong>Disk Alignment:</strong><br>
   Partitions should ideally start on <strong>1 MiB boundaries (sector 2048)</strong> for optimal performance, especially on SSDs. Older fdisk defaults may align to 63 sectors, which works but is less efficient.</p>
@@ -237,42 +217,29 @@ On a bootable disk, one partition typically has the <strong><code>boot</code> fl
 <h4><strong>GPT (UEFI)</strong></h4>
 <ul>
 <li>
-<strong>Booting:</strong><br>
-UEFI reads the <strong>EFI System Partition (ESP)</strong>, which is always formatted as <strong>FAT32</strong>. The firmware can only read FAT32, so all bootloader files must <strong>reside here</strong>. By convention, the ESP is usually the <strong>first partition</strong> on UEFI-bootable disks.  </li>
-</ul>
-<p>Standard UEFI firmware does <strong>not log boot events</strong> to the ESP, but in practice, the <strong>OS or bootloader may modify it</strong>, for example during system updates or bootloader installation.</p>
-<ul>
+<p><strong>Booting:</strong><br>
+UEFI reads the <strong>EFI System Partition (ESP)</strong>, which is always formatted as <strong>FAT32</strong>. The firmware <strong>can</strong> read FAT32, so all bootloader files must <strong>reside here</strong>. By convention, the ESP is usually the <strong>first partition</strong> on UEFI-bootable disks. Standard UEFI firmware does <strong>not log boot events</strong> to the ESP, but in practice, the <strong>OS or bootloader may modify it</strong>, for example during system updates or bootloader installation.</p>
+</li>
 <li>
 <p><strong>GPT Metadata:</strong><br>
 In GPT, each partition contains <strong>more metadata than MBR</strong>. The key fields in a GPT partition entry (128 bytes per entry) are:</p>
 </li>
 <li>
-<p><strong>Partition Type GUID (16 bytes)</strong>  </p>
-</li>
-<li>Identifies the purpose of the partition, e.g., EFI System Partition, Linux filesystem, Windows data, etc.  </li>
-<li>
-<p>UEFI firmware scans for the ESP GUID 12A7328-F81F-11D2-BA4B-00A0C93EC93B to find the bootloader.</p>
+<p><strong>Partition Type GUID (16 bytes)</strong><br>
+  It identifies the purpose of the partition, e.g., EFI System Partition, Linux filesystem, Windows data, etc. UEFI firmware scans for the ESP GUID 12A7328-F81F-11D2-BA4B-00A0C93EC93B to find the bootloader.</p>
 </li>
 <li>
-<p><strong>Unique Partition GUID (16 bytes)</strong>  </p>
-</li>
-<li>A randomly generated globally unique identifier for this specific partition.  </li>
-<li>Helps the OS and tools track partitions even if they are cloned or moved.  </li>
-<li>
-<p>Can act as a persistent disk fingerprint.</p>
+<p><strong>Unique Partition GUID (16 bytes)</strong><br>
+  It is randomly generated globally unique identifier for every partition. Helps the OS and tools track partitions even if they are cloned or moved. Can act as a persistent disk fingerprint.</p>
 </li>
 <li>
-<p><strong>Starting LBA (8 bytes) and Ending LBA (8 bytes)</strong>  </p>
-</li>
-<li>Specify the first and last sectors of the partition.  </li>
-<li>
-<p>Allows proper alignment for performance and support for very large disks.</p>
+<p><strong>Starting LBA (8 bytes) and Ending LBA (8 bytes)</strong><br>
+  Specify the first and last sectors of the partition and allows proper alignment for performance and support for very large disks.</p>
 </li>
 <li>
-<p><strong>Attributes / Flags (8 bytes, 64 bits)</strong>  </p>
-</li>
-<li>Optional flags controlling OS or firmware behavior.  </li>
-<li>Standard bits include:  <ul>
+<p><strong>Attributes / Flags (8 bytes, 64 bits)</strong><br>
+  These are optional flags controlling OS or firmware behavior. Most of them are reserved for OS-specific use, however there are few standard bits, including:</p>
+<ul>
 <li>
 <strong>Bit 0:</strong> Required partition  </li>
 <li>
@@ -286,19 +253,12 @@ In GPT, each partition contains <strong>more metadata than MBR</strong>. The key
 </ul>
 </li>
 <li>
-<p>Most bits are reserved for OS-specific uses.</p>
-</li>
-<li>
-<p><strong>Partition Name (72 bytes, UTF-16)</strong>  </p>
-</li>
-<li>Human-readable name of the partition (optional).  </li>
-<li>Useful for GUI tools, OS utilities, or logging.  </li>
-<li>
-<p>Does <strong>not</strong> affect booting.</p>
+<p><strong>Partition Name (72 bytes, UTF-16)</strong><br>
+  This is human readable name of the partition. It is optional and used by GUI tools, OS utilities, or logging. It does <strong>not</strong> affect booting.</p>
 </li>
 <li>
 <p><strong>Bootable Flag:</strong><br>
-  The ESP is recognized by the firmware using a <strong>partition type GUID</strong> C12A7328-F81F-11D2-BA4B-00A0C93EC93B. This partition must be formated as FAT32 and  <strong>around 300 MB</strong> is enough, even for dual-boot systems. </p>
+  The ESP is recognized by the firmware using a <strong>partition type GUID</strong> C12A7328-F81F-11D2-BA4B-00A0C93EC93B. This partition must be formated as FAT32. </p>
 </li>
 <li>
 <p><strong>Disk Alignment:</strong><br>
@@ -309,24 +269,23 @@ In GPT, each partition contains <strong>more metadata than MBR</strong>. The key
   128+ partitions by default, and supports disks <strong>larger than 2 TB</strong>.</p>
 </li>
 </ul>
-<h3>Formatting a Bootable Disk and Instalation Boot Mode</h3>
-<p>You can format the disk from a shell, use a preformatted disk, or format it during the Debian installation process. However, <strong>be aware that the way you boot your installation media directly affects the disk format and the installation mode</strong>.  </p>
+<h3>Partitioning the Disk</h3>
+<p>You can partition the disk from a shell, use a preformatted disk, or format it during the Debian installation process. However, <strong>be aware that the way you boot your installation media directly affects the disk format and the installation mode</strong>.  </p>
 <p>For consistency and to avoid boot problems, it is <strong>wise to boot the installation media in the same mode</strong> you intend the system to use after installation (UEFI → GPT, Legacy → MBR). The boot mode you choose <strong>UEFI</strong> or <strong>Legacy/MBR (CSM)</strong> determines how Debian will be installed:</p>
 <ul>
 <li>
-<strong>UEFI Boot:</strong>  </li>
-<li>
-<p>The installer expects or creates a <strong>GPT-formatted disk</strong>.  </p>
+<p><strong>UEFI Boot:</strong><br>
+  The installer expects or creates a <strong>GPT-formatted disk</strong>.  </p>
 </li>
 <li>
-<p><strong>Legacy/MBR Boot (CSM):</strong>  </p>
+<p><strong>Legacy/MBR Boot (CSM):</strong><br>
+  The installer expects or creates <strong>MSDOS/MBR partition table</strong>.  </p>
 </li>
-<li>The installer expects or creates <strong>MSDOS/MBR partition table</strong>.  </li>
 </ul>
 <p>Booting a GPT disk in Legacy mode or an MBR disk in UEFI mode usually results in a system that will <strong>not boot</strong>. </p>
 <p>If you want to avoid UEFI at all costs, and your BIOS only supports UEFI boot, it is technically possible to install Debian on an MBR disk. This may require manual configuration to make it bootable, which is covered later in this guide.</p>
 <p>Note: Legacy boot from GPT disks has not been covered in this guide, but some setups using <strong>GRUB</strong> might allow it.</p>
-<h4>Creating MBR</h4>
+<h4>Creating a MBR Partition Table in BASH</h4>
 <p>Personally, I prefer the MSDOS partition table (MBR)—it’s simple and works well when your BIOS supports legacy boot. To set it up, just run:</p>
 <div class="code"><pre class="code literal-block">fdisk<span class="w"> </span>/dev/sdX
 </pre></div>
@@ -335,9 +294,8 @@ In GPT, each partition contains <strong>more metadata than MBR</strong>. The key
 1. Press <code>n</code> – create a new partition (repeat for additional partitions)<br>
 2. Press <code>t</code> – change partition type (for EFI System Partition, use type <code>1</code>)<br>
 3. Press <code>w</code> – write changes and exit</p>
-<h4>Creating GPT disk with ESP partition</h4>
+<h4>Creating a GPT Partition Table in BASH</h4>
 <p>In some cases, <strong>MSDOS just won’t work</strong>, especially on newer hardware where BIOS/UEFI firmware has dropped proper legacy boot support. For example, on one high-end motherboard I tested, legacy mode was available in the BIOS, but it <strong>refused to boot from an M.2 SSD</strong> formatted with an MSDOS partition table. In such situations, you’ll need to use <strong>GPT (GUID Partition Table)</strong> instead.</p>
-<h4>Creating a GPT Partition Table within BASH</h4>
 <p>You can format your disk outside Debian installer using typically <code>fdisk</code> or <code>gdisk</code>. Newer <code>fdisk</code> versions support creating GPT partitions. To initialize a disk with GPT using <code>fdisk</code>, run:</p>
 <div class="code"><pre class="code literal-block">fdisk<span class="w"> </span>/dev/sdX
 </pre></div>
@@ -350,7 +308,7 @@ In GPT, each partition contains <strong>more metadata than MBR</strong>. The key
 
 <p>Replace /dev/sdX with your actual device (e.g., /dev/sda or /dev/nvme0n1).</p>
 <h4>Creating EFI System Partition</h4>
-<p>When using GPT with UEFI boot, you <strong>must create an EFI System Partition (ESP)</strong>. In the Debian installer, set the following:</p>
+<p>When using GPT with UEFI boot, you <strong>must create an EFI System Partition (ESP)</strong>. In the Debian installer partitioning tool, set the following:</p>
 <ul>
 <li>
 <strong>Filesystem</strong>: <code>FAT32</code>  </li>
