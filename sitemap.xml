@@ -7,183 +7,127 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>https://kontexty.com/</loc>
-  <lastmod>2025-09-28T11:33:00Z</lastmod>
+  <lastmod>2026-03-21T21:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://kontexty.com/archive.html</loc>
-  <lastmod>2025-09-29T00:26:00Z</lastmod>
+  <lastmod>2026-03-21T21:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://kontexty.com/categories/</loc>
-  <lastmod>2025-09-16T16:57:00Z</lastmod>
+  <lastmod>2026-03-21T21:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://kontexty.com/categories/cat_general-blog.html</loc>
-  <lastmod>2025-09-28T11:39:00Z</lastmod>
+  <lastmod>2026-03-21T21:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://kontexty.com/categories/cat_software-blog.html</loc>
-  <lastmod>2025-09-28T11:39:00Z</lastmod>
+  <lastmod>2026-03-21T21:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://kontexty.com/cz/</loc>
-  <lastmod>2025-09-28T11:33:00Z</lastmod>
+  <lastmod>2026-03-21T21:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://kontexty.com/cz/archive.html</loc>
-  <lastmod>2025-09-29T00:49:00Z</lastmod>
+  <lastmod>2026-03-21T21:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://kontexty.com/cz/categories/</loc>
-  <lastmod>2025-09-28T11:33:00Z</lastmod>
+  <lastmod>2026-03-21T21:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://kontexty.com/cz/categories/cat_general-blog.html</loc>
-  <lastmod>2025-09-28T11:39:00Z</lastmod>
+  <lastmod>2026-03-21T21:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://kontexty.com/cz/categories/cat_software-blog.html</loc>
-  <lastmod>2025-09-28T11:39:00Z</lastmod>
+  <lastmod>2026-03-21T21:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://kontexty.com/cz/galleries/</loc>
-  <lastmod>2025-09-28T11:33:00Z</lastmod>
+  <lastmod>2026-03-21T21:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://kontexty.com/cz/posts/czech-christmas-2023.html</loc>
-  <lastmod>2025-09-28T11:39:00Z</lastmod>
+  <lastmod>2026-03-21T21:27:00Z</lastmod>
   <xhtml:link rel="alternate" hreflang="en" href="https://kontexty.com/posts/czech-christmas-2023.html" />
  </url>
  <url>
   <loc>https://kontexty.com/cz/posts/fialas-government-2022-2025-nutella-from-germany-hope-from-mojzir-and-compassion-from-gaza.html</loc>
-  <lastmod>2025-09-29T00:49:00Z</lastmod>
+  <lastmod>2026-03-21T21:27:00Z</lastmod>
   <xhtml:link rel="alternate" hreflang="en" href="https://kontexty.com/posts/fialas-government-2022-2025-nutella-from-germany-hope-from-mojzir-and-compassion-from-gaza.html" />
  </url>
  <url>
   <loc>https://kontexty.com/cz/posts/francis-is-dead-long-live-the-pope.html</loc>
-  <lastmod>2025-09-28T11:39:00Z</lastmod>
+  <lastmod>2026-03-21T21:27:00Z</lastmod>
   <xhtml:link rel="alternate" hreflang="en" href="https://kontexty.com/posts/francis-is-dead-long-live-the-pope.html" />
  </url>
  <url>
   <loc>https://kontexty.com/cz/posts/gpt-partitioning-for-uefi-in-debian-12.html</loc>
-  <lastmod>2025-09-28T11:39:00Z</lastmod>
+  <lastmod>2026-03-21T21:27:00Z</lastmod>
   <xhtml:link rel="alternate" hreflang="en" href="https://kontexty.com/posts/gpt-partitioning-for-uefi-in-debian-12.html" />
  </url>
  <url>
   <loc>https://kontexty.com/cz/posts/kontext-is-everything.html</loc>
-  <lastmod>2025-09-28T11:39:00Z</lastmod>
+  <lastmod>2026-03-21T21:27:00Z</lastmod>
   <xhtml:link rel="alternate" hreflang="en" href="https://kontexty.com/posts/kontext-is-everything.html" />
  </url>
  <url>
   <loc>https://kontexty.com/cz/posts/lasagna-cheaper-than-ready-made-product.html</loc>
-  <lastmod>2025-09-28T11:39:00Z</lastmod>
+  <lastmod>2026-03-21T21:27:00Z</lastmod>
   <xhtml:link rel="alternate" hreflang="en" href="https://kontexty.com/posts/lasagna-cheaper-than-ready-made-product.html" />
  </url>
  <url>
   <loc>https://kontexty.com/cz/posts/slunovrat-the-day-the-sun-returns.html</loc>
-  <lastmod>2025-09-28T11:39:00Z</lastmod>
+  <lastmod>2026-03-21T21:27:00Z</lastmod>
   <xhtml:link rel="alternate" hreflang="en" href="https://kontexty.com/posts/slunovrat-the-day-the-sun-returns.html" />
  </url>
  <url>
   <loc>https://kontexty.com/cz/posts/why-use-google-chrome-and-why-not.html</loc>
-  <lastmod>2025-09-28T11:39:00Z</lastmod>
+  <lastmod>2026-03-21T21:27:00Z</lastmod>
   <xhtml:link rel="alternate" hreflang="en" href="https://kontexty.com/posts/why-use-google-chrome-and-why-not.html" />
  </url>
  <url>
-  <loc>https://kontexty.com/en/</loc>
-  <lastmod>2025-09-28T11:33:00Z</lastmod>
- </url>
- <url>
-  <loc>https://kontexty.com/en/archive.html</loc>
-  <lastmod>2025-09-28T11:33:00Z</lastmod>
- </url>
- <url>
-  <loc>https://kontexty.com/en/categories/</loc>
-  <lastmod>2025-09-28T11:33:00Z</lastmod>
- </url>
- <url>
-  <loc>https://kontexty.com/en/categories/cat_general-blog.html</loc>
-  <lastmod>2025-09-28T11:33:00Z</lastmod>
- </url>
- <url>
-  <loc>https://kontexty.com/en/categories/cat_software-blog.html</loc>
-  <lastmod>2025-09-28T11:33:00Z</lastmod>
- </url>
- <url>
-  <loc>https://kontexty.com/en/galleries/</loc>
-  <lastmod>2025-09-28T11:33:00Z</lastmod>
- </url>
- <url>
-  <loc>https://kontexty.com/en/posts/czech-christmas-2023.html</loc>
-  <lastmod>2025-09-28T11:33:00Z</lastmod>
- </url>
- <url>
-  <loc>https://kontexty.com/en/posts/fialas-government-2022-2025-nutella-from-germany-hope-from-mojzir-and-compassion-from-gaza.html</loc>
-  <lastmod>2025-09-28T11:33:00Z</lastmod>
- </url>
- <url>
-  <loc>https://kontexty.com/en/posts/francis-is-dead-long-live-the-pope.html</loc>
-  <lastmod>2025-09-28T11:33:00Z</lastmod>
- </url>
- <url>
-  <loc>https://kontexty.com/en/posts/gpt-partitioning-for-uefi-in-debian-12.html</loc>
-  <lastmod>2025-09-28T11:33:00Z</lastmod>
- </url>
- <url>
-  <loc>https://kontexty.com/en/posts/kontext-is-everything.html</loc>
-  <lastmod>2025-09-28T11:33:00Z</lastmod>
- </url>
- <url>
-  <loc>https://kontexty.com/en/posts/lasagna-cheaper-than-ready-made-product.html</loc>
-  <lastmod>2025-09-28T11:33:00Z</lastmod>
- </url>
- <url>
-  <loc>https://kontexty.com/en/posts/slunovrat-the-day-the-sun-returns.html</loc>
-  <lastmod>2025-09-28T11:33:00Z</lastmod>
- </url>
- <url>
-  <loc>https://kontexty.com/en/posts/why-use-google-chrome-and-why-not.html</loc>
-  <lastmod>2025-09-28T11:33:00Z</lastmod>
- </url>
- <url>
   <loc>https://kontexty.com/galleries/</loc>
-  <lastmod>2025-09-16T16:57:00Z</lastmod>
+  <lastmod>2026-03-21T21:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://kontexty.com/listings/</loc>
-  <lastmod>2025-09-16T16:57:00Z</lastmod>
+  <lastmod>2026-03-21T21:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://kontexty.com/posts/czech-christmas-2023.html</loc>
-  <lastmod>2025-09-28T11:39:00Z</lastmod>
+  <lastmod>2026-03-21T21:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://kontexty.com/posts/fialas-government-2022-2025-nutella-from-germany-hope-from-mojzir-and-compassion-from-gaza.html</loc>
-  <lastmod>2025-09-29T00:26:00Z</lastmod>
+  <lastmod>2026-03-21T21:27:00Z</lastmod>
   <xhtml:link rel="alternate" hreflang="cs" href="https://kontexty.com/cz/posts/fialas-government-2022-2025-nutella-from-germany-hope-from-mojzir-and-compassion-from-gaza.html" />
  </url>
  <url>
   <loc>https://kontexty.com/posts/francis-is-dead-long-live-the-pope.html</loc>
-  <lastmod>2025-09-28T11:39:00Z</lastmod>
+  <lastmod>2026-03-21T21:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://kontexty.com/posts/gpt-partitioning-for-uefi-in-debian-12.html</loc>
-  <lastmod>2025-09-28T11:39:00Z</lastmod>
+  <lastmod>2026-03-21T21:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://kontexty.com/posts/kontext-is-everything.html</loc>
-  <lastmod>2025-09-28T11:39:00Z</lastmod>
+  <lastmod>2026-03-21T21:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://kontexty.com/posts/lasagna-cheaper-than-ready-made-product.html</loc>
-  <lastmod>2025-09-28T11:39:00Z</lastmod>
+  <lastmod>2026-03-21T21:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://kontexty.com/posts/slunovrat-the-day-the-sun-returns.html</loc>
-  <lastmod>2025-09-28T11:39:00Z</lastmod>
+  <lastmod>2026-03-21T21:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://kontexty.com/posts/why-use-google-chrome-and-why-not.html</loc>
-  <lastmod>2025-09-28T11:39:00Z</lastmod>
+  <lastmod>2026-03-21T21:27:00Z</lastmod>
  </url>
 </urlset>

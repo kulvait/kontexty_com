@@ -91,7 +91,7 @@ bg-dark
 <!-- TEASER_END -->
 
 <h2>Prerequisite: Creating a Bootable Debian USB Installer (UEFI-Ready)</h2>
-<p>There are several ways to install Debian, but in this guide we’ll focus on the most straightforward: creating a bootable USB stick that contains both a live system and the Debian installer. This approach serves two important purposes. First, it allows you to test whether your hardware supports the intended installation method, UEFI or legacy BIOS, and confirms that Debian can at least run in live mode. Second, it gives you the opportunity to perform disk partitioning outside the installer, using tools in the live environment, giving you greater control over the setup before installation begins.</p>
+<p>The most straightforward way to install Debian is to create a bootable USB stick that contains both a live system and the Debian installer. This approach serves two important purposes. First, it allows you to test whether your hardware supports the intended installation method, UEFI or legacy BIOS, and confirms that Debian can at least run in live mode. Second, it gives you the opportunity to perform disk partitioning outside the installer, using tools in the live environment, giving you greater control over the setup before installation begins.</p>
 <p>It's worth noting that the Debian <a href="https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/">Live ISO images</a> are <strong>hybrid ISOs</strong>. This means they can be either written to a USB stick or burned to a DVD. They include both an MBR and a GPT partition layouts and are designed to be bootable on either legacy BIOS or UEFI systems, regardless on the instalation media.</p>
 <p>In a typical situation on Linux, you can write the image directly to your USB drive (e.g., <code>/dev/sdb</code>) using the <code>dd</code> command. <strong>Warning: This will irrevocably destroy all data on the target device. Double-check the target device (<code>of=</code> parameter) to avoid overwriting your system disk.</strong></p>
 <div class="code"><pre class="code literal-block">dd<span class="w"> </span><span class="k">if</span><span class="o">=</span>./debian-live-13.1.0-amd64-lxde.iso<span class="w"> </span><span class="nv">of</span><span class="o">=</span>/dev/sdX<span class="w"> </span><span class="nv">bs</span><span class="o">=</span>128K<span class="w"> </span><span class="nv">status</span><span class="o">=</span>progress<span class="w"> </span><span class="nv">oflag</span><span class="o">=</span>sync
@@ -99,7 +99,7 @@ bg-dark
 
 <p>On Windows, <a href="https://rufus.ie/en/">Rufus</a> can be used to write the Debian ISO image to a USB drive. Rufus offers two modes: <strong>DD image mode</strong> and <strong>ISO image mode</strong>. In <strong>DD image mode</strong>, Rufus creates an exact bit-for-bit copy of the Debian ISO, just like the Linux <code>dd</code> command. However, certain broken or non-standard UEFI implementations might fail to boot from the exact copy of the hybrid ISO.</p>
 <p>In <strong>ISO image mode</strong>, Rufus extracts the files from the ISO and writes them to the USB stick in a conventional file system layout (e.g., FAT32). This mode does not preserve the hybrid partition structure but can sometimes be more compatible with systems that have UEFI firmware quirks or bugs. A lot of Rufus development focuses on addressing these issues, and there is no direct Linux alternative I am aware of. However, it may not retain the signed bootloaders, which could break <strong>Secure Boot</strong> functionality.</p>
-<h3>Booting the Installation Media</h3>
+<h3>Testing Installation Media</h3>
 <p>Booting a Debian installer, especially on modern systems, can be frustrating because several firmware features and tools interfere in different ways. Below are the most common issues you may encounter and how to overcome them:</p>
 <ol>
 <li>
@@ -115,8 +115,10 @@ bg-dark
 <p><strong>Disable Fast Boot in Windows</strong></p>
 <ul>
 <li>Fast boot is a Windows mechanism that prevents full system shutdown to boot faster. However, on boot it skips important parts of the boot sequence and needs to be disabled.</li>
-<li>The following PowerShell command disables it, run as Administrator:</li>
-<li><code>Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Power" -Name HiberbootEnabled -Value 0</code></li>
+<li>The following command run PowerShell as Administrator, force Windows to use UTC and disable Fast boot:</li>
+<li><code>start powershell -Command "Start-Process PowerShell -Verb RunAs"
+Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\TimeZoneInformation" -Name "RealTimeIsUniversal" -Value 1
+Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Power" -Name HiberbootEnabled -Value 0</code></li>
 <li>Reboot and try the boot menu (Step 1) again.</li>
 </ul>
 </li>
@@ -153,7 +155,179 @@ bg-dark
 </pre></div>
 
 <p>Replace <code>/dev/sdX</code> with your actual drive identifier and remember, all data will be permanently lost.</p>
-<p>If you've managed to get the live system running, you're ready for the first real decision: which partition table to use, GPT or MSDOS (MBR). Personally, I prefer the MSDOS partition table (MBR)—it’s simple and works well when your BIOS supports legacy boot. To set it up, just run:</p>
+<h3>MBR vs GPT: What You Need to Know for Booting Debian</h3>
+<p>When installing Debian, the choice between <strong>MS-DOS (MBR)</strong> and <strong>GPT</strong> affects how the system boots and how partitions are organized. Here's a simple comparison, including disk alignment tips and boot behavior.</p>
+<h4><strong>MS-DOS (MBR)</strong></h4>
+<ul>
+<li>
+<strong>Booting:</strong><br>
+The BIOS reads the <strong>Master Boot Record (first 512 bytes of the disk)</strong>, which contains the bootloader code. The BIOS does <strong>not</strong> interpret filesystems—it simply loads the bootloader, such as <strong>GRUB</strong> or the <strong>Windows bootloader</strong>.  </li>
+</ul>
+<p>In the MBR, there is also a <strong>partition table</strong> that describes the layout of the disk, including primary and extended partitions. This allows bootloaders to locate and boot operating systems from partitions formatted as <strong>FAT, ext2/3/4, Btrfs, or other filesystems</strong>, even though the BIOS itself does not understand these filesystems.</p>
+<ul>
+<li>
+<p><strong>Partition metadata:</strong>
+In MBR (MS-DOS) partition tables, each partition entry contains two main pieces of metadata relevant for booting and OS recognition:</p>
+</li>
+<li>
+<p><strong>Boot flag (status byte)</strong>  </p>
+</li>
+<li>Stored in the <strong>first byte</strong> of the partition entry.  </li>
+<li>
+<code>0x80</code> → bootable (active) partition  </li>
+<li>
+<p><code>0x00</code> → inactive partition  </p>
+</li>
+<li>
+<p><strong>Partition type byte</strong>  </p>
+</li>
+<li>Stored in the <strong>5th byte</strong> of the partition entry.  </li>
+<li>Identifies the filesystem or operating system type.  </li>
+<li>BIOS ignores this byte for booting; it’s used by OSes and partitioning tools.</li>
+</ul>
+<p>Common Partition Type Codes are</p>
+<table>
+<thead><tr>
+<th>Type (Hex)</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>0x83</td>
+<td>Linux native (ext2/ext3/ext4, Btrfs, XFS, etc.)</td>
+</tr>
+<tr>
+<td>0x82</td>
+<td>Linux swap</td>
+</tr>
+<tr>
+<td>0x8E</td>
+<td>Linux LVM</td>
+</tr>
+<tr>
+<td>0x07</td>
+<td>NTFS / exFAT</td>
+</tr>
+<tr>
+<td>0x0B</td>
+<td>FAT32 (CHS addressing)</td>
+</tr>
+<tr>
+<td>0x0C</td>
+<td>FAT32 (LBA addressing)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<strong>Bootable Partition Flag:</strong><br>
+On a bootable disk, one partition typically has the <strong><code>boot</code> flag</strong> set, which historically indicated the partition from which the operating system should be loaded. With modern bootloaders, such as <strong>GRUB</strong>, this flag is <strong>technically unnecessary</strong>, because the bootloader is usually installed directly in the <strong>MBR</strong>.  </li>
+</ul>
+<p>However, in older systems like MS-DOS, the BIOS and simple bootloaders relied on the <strong>boot flag</strong> to locate the second-stage bootloader in the partition's first sector.</p>
+<ul>
+<li>
+<p><strong>Disk Alignment:</strong><br>
+  Partitions should ideally start on <strong>1 MiB boundaries (sector 2048)</strong> for optimal performance, especially on SSDs. Older fdisk defaults may align to 63 sectors, which works but is less efficient.</p>
+</li>
+<li>
+<p><strong>Partition Limits:</strong><br>
+  Up to 4 primary partitions (or 3 primary + 1 extended) with logical partitions inside the extended partition. Maximum disk size is ~2 TB.</p>
+</li>
+</ul>
+<h4><strong>GPT (UEFI)</strong></h4>
+<ul>
+<li>
+<strong>Booting:</strong><br>
+UEFI reads the <strong>EFI System Partition (ESP)</strong>, which is always formatted as <strong>FAT32</strong>. The firmware can only read FAT32, so all bootloader files must <strong>reside here</strong>. By convention, the ESP is usually the <strong>first partition</strong> on UEFI-bootable disks.  </li>
+</ul>
+<p>Standard UEFI firmware does <strong>not log boot events</strong> to the ESP, but in practice, the <strong>OS or bootloader may modify it</strong>, for example during system updates or bootloader installation.</p>
+<ul>
+<li>
+<p><strong>GPT Metadata:</strong><br>
+In GPT, each partition contains <strong>more metadata than MBR</strong>. The key fields in a GPT partition entry (128 bytes per entry) are:</p>
+</li>
+<li>
+<p><strong>Partition Type GUID (16 bytes)</strong>  </p>
+</li>
+<li>Identifies the purpose of the partition, e.g., EFI System Partition, Linux filesystem, Windows data, etc.  </li>
+<li>
+<p>UEFI firmware scans for the ESP GUID 12A7328-F81F-11D2-BA4B-00A0C93EC93B to find the bootloader.</p>
+</li>
+<li>
+<p><strong>Unique Partition GUID (16 bytes)</strong>  </p>
+</li>
+<li>A randomly generated globally unique identifier for this specific partition.  </li>
+<li>Helps the OS and tools track partitions even if they are cloned or moved.  </li>
+<li>
+<p>Can act as a persistent disk fingerprint.</p>
+</li>
+<li>
+<p><strong>Starting LBA (8 bytes) and Ending LBA (8 bytes)</strong>  </p>
+</li>
+<li>Specify the first and last sectors of the partition.  </li>
+<li>
+<p>Allows proper alignment for performance and support for very large disks.</p>
+</li>
+<li>
+<p><strong>Attributes / Flags (8 bytes, 64 bits)</strong>  </p>
+</li>
+<li>Optional flags controlling OS or firmware behavior.  </li>
+<li>Standard bits include:  <ul>
+<li>
+<strong>Bit 0:</strong> Required partition  </li>
+<li>
+<strong>Bit 1:</strong> Legacy BIOS bootable  </li>
+<li>
+<strong>Bit 2:</strong> EFI System Partition  </li>
+<li>
+<strong>Bit 60:</strong> No automount / hidden  </li>
+<li>
+<strong>Bit 62:</strong> Read-only  </li>
+</ul>
+</li>
+<li>
+<p>Most bits are reserved for OS-specific uses.</p>
+</li>
+<li>
+<p><strong>Partition Name (72 bytes, UTF-16)</strong>  </p>
+</li>
+<li>Human-readable name of the partition (optional).  </li>
+<li>Useful for GUI tools, OS utilities, or logging.  </li>
+<li>
+<p>Does <strong>not</strong> affect booting.</p>
+</li>
+<li>
+<p><strong>Bootable Flag:</strong><br>
+  The ESP is recognized by the firmware using a <strong>partition type GUID</strong> C12A7328-F81F-11D2-BA4B-00A0C93EC93B. This partition must be formated as FAT32 and  <strong>around 300 MB</strong> is enough, even for dual-boot systems. </p>
+</li>
+<li>
+<p><strong>Disk Alignment:</strong><br>
+  Just like MBR, partitions should start on <strong>1 MiB boundaries</strong>. GPT also stores backup headers at the end of the disk for redundancy.</p>
+</li>
+<li>
+<p><strong>Partition Limits:</strong><br>
+  128+ partitions by default, and supports disks <strong>larger than 2 TB</strong>.</p>
+</li>
+</ul>
+<h3>Formatting a Bootable Disk and Instalation Boot Mode</h3>
+<p>You can format the disk from a shell, use a preformatted disk, or format it during the Debian installation process. However, <strong>be aware that the way you boot your installation media directly affects the disk format and the installation mode</strong>.  </p>
+<p>For consistency and to avoid boot problems, it is <strong>wise to boot the installation media in the same mode</strong> you intend the system to use after installation (UEFI → GPT, Legacy → MBR). The boot mode you choose <strong>UEFI</strong> or <strong>Legacy/MBR (CSM)</strong> determines how Debian will be installed:</p>
+<ul>
+<li>
+<strong>UEFI Boot:</strong>  </li>
+<li>
+<p>The installer expects or creates a <strong>GPT-formatted disk</strong>.  </p>
+</li>
+<li>
+<p><strong>Legacy/MBR Boot (CSM):</strong>  </p>
+</li>
+<li>The installer expects or creates <strong>MSDOS/MBR partition table</strong>.  </li>
+</ul>
+<p>Booting a GPT disk in Legacy mode or an MBR disk in UEFI mode usually results in a system that will <strong>not boot</strong>. </p>
+<p>If you want to avoid UEFI at all costs, and your BIOS only supports UEFI boot, it is technically possible to install Debian on an MBR disk. This may require manual configuration to make it bootable, which is covered later in this guide.</p>
+<p>Note: Legacy boot from GPT disks has not been covered in this guide, but some setups using <strong>GRUB</strong> might allow it.</p>
+<h4>Creating MBR</h4>
+<p>Personally, I prefer the MSDOS partition table (MBR)—it’s simple and works well when your BIOS supports legacy boot. To set it up, just run:</p>
 <div class="code"><pre class="code literal-block">fdisk<span class="w"> </span>/dev/sdX
 </pre></div>
 
@@ -161,34 +335,33 @@ bg-dark
 1. Press <code>n</code> – create a new partition (repeat for additional partitions)<br>
 2. Press <code>t</code> – change partition type (for EFI System Partition, use type <code>1</code>)<br>
 3. Press <code>w</code> – write changes and exit</p>
-<h3>When You Must Use GPT</h3>
+<h4>Creating GPT disk with ESP partition</h4>
 <p>In some cases, <strong>MSDOS just won’t work</strong>, especially on newer hardware where BIOS/UEFI firmware has dropped proper legacy boot support. For example, on one high-end motherboard I tested, legacy mode was available in the BIOS, but it <strong>refused to boot from an M.2 SSD</strong> formatted with an MSDOS partition table. In such situations, you’ll need to use <strong>GPT (GUID Partition Table)</strong> instead.</p>
-<h4>Boot Mode and Partitioning Must Match</h4>
-<p>The boot mode you choose—UEFI or Legacy/MBR (CSM)—determines how Debian will be installed. If you boot the installer in UEFI mode, it expects to install to a GPT-formatted disk. If you boot in Legacy mode, it will use an MSDOS/MBR layout. These modes are not interchangeable, and mismatching them can lead to a system that won't boot. Exception is when your BIOS do support legacy boot but you still want MBR layout of the disk with Debian. This won't boot but you can overcome it as I explain later.</p>
-<h4>Creating a GPT Partition Table with <code>fdisk</code> or <code>gdisk</code>
-</h4>
-<p>To initialize a disk with GPT using <code>fdisk</code>, run:</p>
+<h4>Creating a GPT Partition Table within BASH</h4>
+<p>You can format your disk outside Debian installer using typically <code>fdisk</code> or <code>gdisk</code>. Newer <code>fdisk</code> versions support creating GPT partitions. To initialize a disk with GPT using <code>fdisk</code>, run:</p>
 <div class="code"><pre class="code literal-block">fdisk<span class="w"> </span>/dev/sdX
 </pre></div>
 
 <p>Once inside the fdisk prompt, press <code>g</code> to create a new GPT partition table. Similarly, pressing <code>o</code> creates an MBR partition table, which is the default.</p>
-<p>While fdisk supports creating GPT partition tables, the tool was originally designed for MBR (MSDOS) partitions. For more advanced and GPT focused tool, the utility <a href="https://www.rodsbooks.com/gdisk/"><code>gdisk</code></a> offers familiar <code>fdisk</code> like interface.</p>
+<p>For more advanced and GPT focused tool, the utility <a href="https://www.rodsbooks.com/gdisk/"><code>gdisk</code></a> offers familiar <code>fdisk</code> like interface.</p>
 <p>To use gdisk:</p>
 <div class="code"><pre class="code literal-block">gdisk<span class="w"> </span>/dev/sdX
 </pre></div>
 
 <p>Replace /dev/sdX with your actual device (e.g., /dev/sda or /dev/nvme0n1).</p>
-<h4>EFI System Partition Requirements</h4>
-<p>When using GPT with UEFI boot, you <strong>must create an EFI System Partition (ESP)</strong>:</p>
+<h4>Creating EFI System Partition</h4>
+<p>When using GPT with UEFI boot, you <strong>must create an EFI System Partition (ESP)</strong>. In the Debian installer, set the following:</p>
 <ul>
 <li>
 <strong>Filesystem</strong>: <code>FAT32</code>  </li>
 <li>
-<strong>Size</strong>: <strong>500 MB</strong> (recommended, generous even for dual-boot setups)  </li>
+<strong>Size</strong>: <strong>300 MB</strong> (recommended, generous even for dual-boot setups)  </li>
 <li>
 <strong>Flags</strong>: <code>boot</code>, <code>esp</code>  </li>
 </ul>
-<p>This partition is required for UEFI firmware to detect and boot your OS. In the Debian installer, make sure to mount this partition to <code>/boot/efi</code>. Without this, GRUB won't be installed correctly for UEFI Debian instalation.</p>
+<p>With these flags, the Debian installer automatically assigns the correct Partition Type GUID, which is required for UEFI boot. In <code>fdisk</code> or <code>gdisk</code> it is sufficient to set proper GUID type, flags are not mandatory.</p>
+<h4>Debian mount point</h4>
+<p>Make sure to mount EFI partition to <code>/boot/efi</code> during instalation process. Without this, GRUB won't be installed correctly for UEFI Debian instalation.</p>
 <h4>Forcing BIOS to Boot MBR When It Really Doesn’t Want To</h4>
 <p>If your BIOS/UEFI flat-out refuses to boot from MBR—even when you’ve done everything “correctly”—there’s still a potential workaround:</p>
 <ol>
@@ -207,7 +380,6 @@ boot</code></p>
 <p>Sometimes <code>boot</code> (my partition), where (my partition) is the partition with the MBR bootable system will work.</p>
 </li>
 </ol>
-<hr>
 <p><strong>Whoo!</strong> GRUB can boot your MBR-partitioned system even when the firmware says "no" to a legacy boot! You might not fully agree when you have to do this over and over again but for some, this might feel like a glorious victory over vendor-imposed UEFI restrictions.</p>
 <p>At the end of the day, it boots. 🎉</p>
         <!-- Horizontal line before the donation section -->
@@ -232,7 +404,7 @@ boot</code></p>
                 <a href="czech-christmas-2023.html" rel="next" title="Czech Christmas 2023, Compassion and Klánovice Fireworks">Další příspěvek</a>
             </li>
         </ul></nav></aside></article><!--End of body content--><footer id="footer">
-            Created 2025 using <a href="https://getnikola.com" rel="nofollow">Nikola</a> and <a href="https://pages.github.com/">GitHub pages</a>. <br><small>Unles stated otherwise, content of these pages is licensed under <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>.</small>
+            Created 2026 using <a href="https://getnikola.com" rel="nofollow">Nikola</a> and <a href="https://pages.github.com/">GitHub pages</a>. <br><small>Unles stated otherwise, content of these pages is licensed under <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>.</small>
             
             
         </footer>
