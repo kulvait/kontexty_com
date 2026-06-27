@@ -7,11 +7,23 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>https://kontexty.com/</loc>
-  <lastmod>2026-03-21T21:27:00Z</lastmod>
+  <lastmod>2026-06-27T07:17:00Z</lastmod>
  </url>
  <url>
   <loc>https://kontexty.com/archive.html</loc>
-  <lastmod>2026-03-21T21:51:00Z</lastmod>
+  <lastmod>2026-06-27T07:17:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://kontexty.com/authors.html</loc>
+  <lastmod>2026-06-27T07:17:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://kontexty.com/authors/</loc>
+  <lastmod>2026-06-27T07:17:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://kontexty.com/authors/vk.html</loc>
+  <lastmod>2026-06-27T07:17:00Z</lastmod>
  </url>
  <url>
   <loc>https://kontexty.com/categories/</loc>
@@ -19,19 +31,31 @@
  </url>
  <url>
   <loc>https://kontexty.com/categories/cat_general-blog.html</loc>
-  <lastmod>2026-03-21T21:27:00Z</lastmod>
+  <lastmod>2026-06-27T07:17:00Z</lastmod>
  </url>
  <url>
   <loc>https://kontexty.com/categories/cat_software-blog.html</loc>
-  <lastmod>2026-03-21T21:51:00Z</lastmod>
+  <lastmod>2026-06-27T07:17:00Z</lastmod>
  </url>
  <url>
   <loc>https://kontexty.com/cz/</loc>
-  <lastmod>2026-03-21T21:27:00Z</lastmod>
+  <lastmod>2026-06-27T07:17:00Z</lastmod>
  </url>
  <url>
   <loc>https://kontexty.com/cz/archive.html</loc>
-  <lastmod>2026-03-21T21:51:00Z</lastmod>
+  <lastmod>2026-06-27T07:17:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://kontexty.com/cz/authors.html</loc>
+  <lastmod>2026-06-27T07:17:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://kontexty.com/cz/authors/</loc>
+  <lastmod>2026-06-27T07:17:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://kontexty.com/cz/authors/vk.html</loc>
+  <lastmod>2026-06-27T07:17:00Z</lastmod>
  </url>
  <url>
   <loc>https://kontexty.com/cz/categories/</loc>
@@ -39,11 +63,11 @@
  </url>
  <url>
   <loc>https://kontexty.com/cz/categories/cat_general-blog.html</loc>
-  <lastmod>2026-03-21T21:27:00Z</lastmod>
+  <lastmod>2026-06-27T07:17:00Z</lastmod>
  </url>
  <url>
   <loc>https://kontexty.com/cz/categories/cat_software-blog.html</loc>
-  <lastmod>2026-03-21T21:51:00Z</lastmod>
+  <lastmod>2026-06-27T07:17:00Z</lastmod>
  </url>
  <url>
   <loc>https://kontexty.com/cz/galleries/</loc>
@@ -51,42 +75,47 @@
  </url>
  <url>
   <loc>https://kontexty.com/cz/posts/czech-christmas-2023.html</loc>
-  <lastmod>2026-03-21T21:27:00Z</lastmod>
+  <lastmod>2026-06-27T07:17:00Z</lastmod>
   <xhtml:link rel="alternate" hreflang="en" href="https://kontexty.com/posts/czech-christmas-2023.html" />
  </url>
  <url>
   <loc>https://kontexty.com/cz/posts/fialas-government-2022-2025-nutella-from-germany-hope-from-mojzir-and-compassion-from-gaza.html</loc>
-  <lastmod>2026-03-21T21:27:00Z</lastmod>
+  <lastmod>2026-06-27T07:17:00Z</lastmod>
   <xhtml:link rel="alternate" hreflang="en" href="https://kontexty.com/posts/fialas-government-2022-2025-nutella-from-germany-hope-from-mojzir-and-compassion-from-gaza.html" />
  </url>
  <url>
   <loc>https://kontexty.com/cz/posts/francis-is-dead-long-live-the-pope.html</loc>
-  <lastmod>2026-03-21T21:27:00Z</lastmod>
+  <lastmod>2026-06-27T07:17:00Z</lastmod>
   <xhtml:link rel="alternate" hreflang="en" href="https://kontexty.com/posts/francis-is-dead-long-live-the-pope.html" />
  </url>
  <url>
   <loc>https://kontexty.com/cz/posts/gpt-partitioning-for-uefi-in-debian-12.html</loc>
-  <lastmod>2026-03-21T21:51:00Z</lastmod>
+  <lastmod>2026-06-27T07:17:00Z</lastmod>
   <xhtml:link rel="alternate" hreflang="en" href="https://kontexty.com/posts/gpt-partitioning-for-uefi-in-debian-12.html" />
  </url>
  <url>
   <loc>https://kontexty.com/cz/posts/kontext-is-everything.html</loc>
-  <lastmod>2026-03-21T21:27:00Z</lastmod>
+  <lastmod>2026-06-27T07:17:00Z</lastmod>
   <xhtml:link rel="alternate" hreflang="en" href="https://kontexty.com/posts/kontext-is-everything.html" />
  </url>
  <url>
   <loc>https://kontexty.com/cz/posts/lasagna-cheaper-than-ready-made-product.html</loc>
-  <lastmod>2026-03-21T21:27:00Z</lastmod>
+  <lastmod>2026-06-27T07:17:00Z</lastmod>
   <xhtml:link rel="alternate" hreflang="en" href="https://kontexty.com/posts/lasagna-cheaper-than-ready-made-product.html" />
  </url>
  <url>
   <loc>https://kontexty.com/cz/posts/slunovrat-the-day-the-sun-returns.html</loc>
-  <lastmod>2026-03-21T21:27:00Z</lastmod>
+  <lastmod>2026-06-27T07:17:00Z</lastmod>
   <xhtml:link rel="alternate" hreflang="en" href="https://kontexty.com/posts/slunovrat-the-day-the-sun-returns.html" />
  </url>
  <url>
+  <loc>https://kontexty.com/cz/posts/the-third-child-rethinking-attachment-theory-beyond-bowlbys-two-boys.html</loc>
+  <lastmod>2026-06-27T07:17:00Z</lastmod>
+  <xhtml:link rel="alternate" hreflang="en" href="https://kontexty.com/posts/the-third-child-rethinking-attachment-theory-beyond-bowlbys-two-boys.html" />
+ </url>
+ <url>
   <loc>https://kontexty.com/cz/posts/why-use-google-chrome-and-why-not.html</loc>
-  <lastmod>2026-03-21T21:27:00Z</lastmod>
+  <lastmod>2026-06-27T07:17:00Z</lastmod>
   <xhtml:link rel="alternate" hreflang="en" href="https://kontexty.com/posts/why-use-google-chrome-and-why-not.html" />
  </url>
  <url>
@@ -99,35 +128,39 @@
  </url>
  <url>
   <loc>https://kontexty.com/posts/czech-christmas-2023.html</loc>
-  <lastmod>2026-03-21T21:27:00Z</lastmod>
+  <lastmod>2026-06-27T07:17:00Z</lastmod>
  </url>
  <url>
   <loc>https://kontexty.com/posts/fialas-government-2022-2025-nutella-from-germany-hope-from-mojzir-and-compassion-from-gaza.html</loc>
-  <lastmod>2026-03-21T21:27:00Z</lastmod>
+  <lastmod>2026-06-27T07:17:00Z</lastmod>
   <xhtml:link rel="alternate" hreflang="cs" href="https://kontexty.com/cz/posts/fialas-government-2022-2025-nutella-from-germany-hope-from-mojzir-and-compassion-from-gaza.html" />
  </url>
  <url>
   <loc>https://kontexty.com/posts/francis-is-dead-long-live-the-pope.html</loc>
-  <lastmod>2026-03-21T21:27:00Z</lastmod>
+  <lastmod>2026-06-27T07:17:00Z</lastmod>
  </url>
  <url>
   <loc>https://kontexty.com/posts/gpt-partitioning-for-uefi-in-debian-12.html</loc>
-  <lastmod>2026-03-21T21:51:00Z</lastmod>
+  <lastmod>2026-06-27T07:17:00Z</lastmod>
  </url>
  <url>
   <loc>https://kontexty.com/posts/kontext-is-everything.html</loc>
-  <lastmod>2026-03-21T21:27:00Z</lastmod>
+  <lastmod>2026-06-27T07:17:00Z</lastmod>
  </url>
  <url>
   <loc>https://kontexty.com/posts/lasagna-cheaper-than-ready-made-product.html</loc>
-  <lastmod>2026-03-21T21:27:00Z</lastmod>
+  <lastmod>2026-06-27T07:17:00Z</lastmod>
  </url>
  <url>
   <loc>https://kontexty.com/posts/slunovrat-the-day-the-sun-returns.html</loc>
-  <lastmod>2026-03-21T21:27:00Z</lastmod>
+  <lastmod>2026-06-27T07:17:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://kontexty.com/posts/the-third-child-rethinking-attachment-theory-beyond-bowlbys-two-boys.html</loc>
+  <lastmod>2026-06-27T07:17:00Z</lastmod>
  </url>
  <url>
   <loc>https://kontexty.com/posts/why-use-google-chrome-and-why-not.html</loc>
-  <lastmod>2026-03-21T21:27:00Z</lastmod>
+  <lastmod>2026-06-27T07:17:00Z</lastmod>
  </url>
 </urlset>

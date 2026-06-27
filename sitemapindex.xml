@@ -6,12 +6,28 @@
     xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <sitemap>
+  <loc>https://kontexty.com/authors.xml</loc>
+  <lastmod>2026-06-27T07:17:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://kontexty.com/authors/vk.xml</loc>
+  <lastmod>2026-06-27T07:17:00Z</lastmod>
+ </sitemap>
+ <sitemap>
   <loc>https://kontexty.com/categories/cat_general-blog.xml</loc>
   <lastmod>2026-03-21T21:27:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://kontexty.com/categories/cat_software-blog.xml</loc>
   <lastmod>2026-03-21T21:51:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://kontexty.com/cz/authors.xml</loc>
+  <lastmod>2026-06-27T07:17:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://kontexty.com/cz/authors/vk.xml</loc>
+  <lastmod>2026-06-27T07:17:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://kontexty.com/cz/categories/cat_general-blog.xml</loc>
@@ -23,22 +39,22 @@
  </sitemap>
  <sitemap>
   <loc>https://kontexty.com/cz/galleries/rss.xml</loc>
-  <lastmod>2026-03-21T21:27:00Z</lastmod>
+  <lastmod>2026-06-27T07:17:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://kontexty.com/cz/rss.xml</loc>
-  <lastmod>2026-03-21T21:51:00Z</lastmod>
+  <lastmod>2026-06-27T07:17:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://kontexty.com/galleries/rss.xml</loc>
-  <lastmod>2026-03-21T21:27:00Z</lastmod>
+  <lastmod>2026-06-27T07:17:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://kontexty.com/rss.xml</loc>
-  <lastmod>2026-03-21T21:51:00Z</lastmod>
+  <lastmod>2026-06-27T07:17:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://kontexty.com/sitemap.xml</loc>
-  <lastmod>2026-03-21T21:51:00Z</lastmod>
+  <lastmod>2026-06-27T07:17:00Z</lastmod>
  </sitemap>
 </sitemapindex>
