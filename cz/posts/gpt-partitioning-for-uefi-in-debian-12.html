@@ -11,7 +11,7 @@
 <link rel="alternate" type="application/rss+xml" title="RSS (cs)" hreflang="cs" href="../rss.xml">
 <link rel="alternate" type="application/rss+xml" title="RSS (en)" hreflang="en" href="../../rss.xml">
 <link rel="canonical" href="https://kontexty.com/cz/posts/gpt-partitioning-for-uefi-in-debian-12.html">
-<!--[if lt IE 9]><script src="../../../assets/js/html5.js"></script><![endif]--><!-- Cloudflare Web Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "9f50299df48a4fd1a29e25ef2f0a4040"}'></script><!-- End Cloudflare Web Analytics --><meta name="author" content="VK">
+<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><!-- Cloudflare Web Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "9f50299df48a4fd1a29e25ef2f0a4040"}'></script><!-- End Cloudflare Web Analytics --><meta name="author" content="VK">
 <link rel="prev" href="lasagna-cheaper-than-ready-made-product.html" title="Lasagna cheaper than ready made product from the store?" type="text/html">
 <link rel="next" href="czech-christmas-2023.html" title="Czech Christmas 2023, Compassion and Klánovice Fireworks" type="text/html">
 <meta property="og:site_name" content="Kontexty">
@@ -81,7 +81,7 @@ bg-dark
 
     </header><!-- Author signature --><div class="text-left">
             <p class="byline author vcard p-author h-card"><span class="badge badge-primary" itemprop="author" style="color: white !important;">
-                    <a class="u-url text-white" href="../authors/vk.html">VK</a>
+                    VK
             </span></p>
 	</div>
     <div class="e-content entry-content" itemprop="articleBody text">
@@ -94,9 +94,8 @@ bg-dark
 <p>The most straightforward way to install Debian is to create a bootable USB stick that contains both a live system and the Debian installer. This approach serves two important purposes. First, it allows you to test whether your hardware supports the intended installation method, UEFI or legacy BIOS, and confirms that Debian can at least run in live mode. Second, it gives you the opportunity to perform disk partitioning outside the installer, using tools in the live environment, giving you greater control over the setup before installation begins.</p>
 <p>It's worth noting that the Debian <a href="https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/">Live ISO images</a> are <strong>hybrid ISOs</strong>. This means they can be either written to a USB stick or burned to a DVD. They include both an MBR and a GPT partition layouts and are designed to be bootable on either legacy BIOS or UEFI systems, regardless on the instalation media.</p>
 <p>In a typical situation on Linux, you can write the image directly to your USB drive (e.g., <code>/dev/sdb</code>) using the <code>dd</code> command. <strong>Warning: This will irrevocably destroy all data on the target device. Double-check the target device (<code>of=</code> parameter) to avoid overwriting your system disk.</strong></p>
-<div class="code"><pre class="code literal-block">dd<span class="w"> </span><span class="k">if</span><span class="o">=</span>./debian-live-13.1.0-amd64-lxde.iso<span class="w"> </span><span class="nv">of</span><span class="o">=</span>/dev/sdX<span class="w"> </span><span class="nv">bs</span><span class="o">=</span>128K<span class="w"> </span><span class="nv">status</span><span class="o">=</span>progress<span class="w"> </span><span class="nv">oflag</span><span class="o">=</span>sync
-</pre></div>
-
+<pre class="code literal-block">dd <span class="k">if</span><span class="o">=</span>./debian-live-13.1.0-amd64-lxde.iso <span class="nv">of</span><span class="o">=</span>/dev/sdX <span class="nv">bs</span><span class="o">=</span>128K <span class="nv">status</span><span class="o">=</span>progress <span class="nv">oflag</span><span class="o">=</span>sync
+</pre>
 <p>On Windows, <a href="https://rufus.ie/en/">Rufus</a> can be used to write the Debian ISO image to a USB drive. Rufus offers two modes: <strong>DD image mode</strong> and <strong>ISO image mode</strong>. In <strong>DD image mode</strong>, Rufus creates an exact bit-for-bit copy of the Debian ISO, just like the Linux <code>dd</code> command. However, certain broken or non-standard UEFI implementations might fail to boot from the exact copy of the hybrid ISO.</p>
 <p>In <strong>ISO image mode</strong>, Rufus extracts the files from the ISO and writes them to the USB stick in a conventional file system layout (e.g., FAT32). This mode does not preserve the hybrid partition structure but can sometimes be more compatible with systems that have UEFI firmware quirks or bugs. A lot of Rufus development focuses on addressing these issues, and there is no direct Linux alternative I am aware of. However, it may not retain the signed bootloaders, which could break <strong>Secure Boot</strong> functionality.</p>
 <h3>Testing Installation Media</h3>
@@ -151,9 +150,8 @@ Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\P
 <p>Now that you've adjusted your BIOS settings and disconnected any drives with preinstalled systems, you might find that the Debian live system still refuses to boot. Some systems are locked down so tightly, via Secure Boot, firmware restrictions, or vendor-specific quirks, that installing Linux becomes impractical without risking a working setup. In such cases, it's often better to walk away than to force an installation that may compromise the machine.</p>
 <h3>Formating the disk</h3>
 <p>This guide assumes you're installing Debian on a completely empty disk. Dual-booting with another OS is possible but adds complexity and is not covered here. Either wipe your existing disk or use a new one. If needed, here’s a quick way to erase a disk using <code>dd</code>:</p>
-<div class="code"><pre class="code literal-block">dd<span class="w"> </span><span class="k">if</span><span class="o">=</span>/dev/zero<span class="w"> </span><span class="nv">of</span><span class="o">=</span>/dev/sdX<span class="w"> </span><span class="nv">bs</span><span class="o">=</span>128K<span class="w"> </span><span class="nv">status</span><span class="o">=</span>progress
-</pre></div>
-
+<pre class="code literal-block">dd <span class="k">if</span><span class="o">=</span>/dev/zero <span class="nv">of</span><span class="o">=</span>/dev/sdX <span class="nv">bs</span><span class="o">=</span>128K <span class="nv">status</span><span class="o">=</span>progress
+</pre>
 <p>Replace <code>/dev/sdX</code> with your actual drive identifier and remember, all data will be permanently lost.</p>
 <h3>MBR vs GPT: What You Need to Know for Booting Debian</h3>
 <p>When installing Debian, the choice between <strong>MS-DOS (MBR)</strong> and <strong>GPT</strong> affects how the system boots and how partitions are organized. Here's a simple comparison, including disk alignment tips and boot behavior.</p>
@@ -287,9 +285,8 @@ In GPT, each partition contains <strong>more metadata than MBR</strong>. The key
 <p>Note: Legacy boot from GPT disks has not been covered in this guide, but some setups using <strong>GRUB</strong> might allow it.</p>
 <h4>Creating a MBR Partition Table in BASH</h4>
 <p>Personally, I prefer the MSDOS partition table (MBR)—it’s simple and works well when your BIOS supports legacy boot. To set it up, just run:</p>
-<div class="code"><pre class="code literal-block">fdisk<span class="w"> </span>/dev/sdX
-</pre></div>
-
+<pre class="code literal-block">fdisk /dev/sdX
+</pre>
 <p>Use fdisk to create your partitions manually. It's a straightforward process, especially for minimal setups.
 1. Press <code>n</code> – create a new partition (repeat for additional partitions)<br>
 2. Press <code>t</code> – change partition type (for EFI System Partition, use type <code>1</code>)<br>
@@ -297,15 +294,13 @@ In GPT, each partition contains <strong>more metadata than MBR</strong>. The key
 <h4>Creating a GPT Partition Table in BASH</h4>
 <p>In some cases, <strong>MSDOS just won’t work</strong>, especially on newer hardware where BIOS/UEFI firmware has dropped proper legacy boot support. For example, on one high-end motherboard I tested, legacy mode was available in the BIOS, but it <strong>refused to boot from an M.2 SSD</strong> formatted with an MSDOS partition table. In such situations, you’ll need to use <strong>GPT (GUID Partition Table)</strong> instead.</p>
 <p>You can format your disk outside Debian installer using typically <code>fdisk</code> or <code>gdisk</code>. Newer <code>fdisk</code> versions support creating GPT partitions. To initialize a disk with GPT using <code>fdisk</code>, run:</p>
-<div class="code"><pre class="code literal-block">fdisk<span class="w"> </span>/dev/sdX
-</pre></div>
-
+<pre class="code literal-block">fdisk /dev/sdX
+</pre>
 <p>Once inside the fdisk prompt, press <code>g</code> to create a new GPT partition table. Similarly, pressing <code>o</code> creates an MBR partition table, which is the default.</p>
 <p>For more advanced and GPT focused tool, the utility <a href="https://www.rodsbooks.com/gdisk/"><code>gdisk</code></a> offers familiar <code>fdisk</code> like interface.</p>
 <p>To use gdisk:</p>
-<div class="code"><pre class="code literal-block">gdisk<span class="w"> </span>/dev/sdX
-</pre></div>
-
+<pre class="code literal-block">gdisk /dev/sdX
+</pre>
 <p>Replace /dev/sdX with your actual device (e.g., /dev/sda or /dev/nvme0n1).</p>
 <h4>Creating EFI System Partition</h4>
 <p>When using GPT with UEFI boot, you <strong>must create an EFI System Partition (ESP)</strong>. In the Debian installer partitioning tool, set the following:</p>
